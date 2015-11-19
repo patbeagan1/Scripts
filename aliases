@@ -1,0 +1,4 @@
+alias gohome='cd /home/patrick/Downloads/MyHome'
+alias test1='echo test'
+alias ralt='ls -ralt'
+

@@ -1,0 +1,81 @@
+#!/bin/bash
+
+echo "Cleaning up the Downloads folder..."
+if [ ! -d ~/Downloads/MyHome ]; then mkdir ~/Downloads/MyHome; fi
+
+#===================================================
+function chkmk {
+        cd ~/Downloads/MyHome
+        if [ ! -d $1 ]; then echo Creating $1; mkdir $1; fi
+}
+function movefiles {
+        chkmk $1
+        declare -a temp=("${!2}")
+        for i in "${temp[@]}"; do
+                mv ~/Downloads/*$i ~/Downloads/MyHome/$1 2>/dev/null
+        done
+}
+#===================================================
+# APK Audio Code Games Graphics OS Text Webpages
+
+apk=(".apk")
+   movefiles APK apk[@]
+
+aud_prop=(".mp3")
+   chkmk Audio
+   movefiles Audio/Prop aud_prop[@]
+aud_free=( ".wav" ".mid")
+   movefiles Audio/Free aud_free[@]
+
+cod=(".py" ".pyc" ".pyo" ".hs" ".c" ".cpp" ".java" ".class")
+   movefiles Code cod[@]
+
+gam=(".gbc"".gba" ".nes" ".sav" )
+   movefiles Games gam[@]
+
+gra=(".png" ".gif" ".jpg" ".jpeg" "svg" ".webm")
+   movefiles Graphics gra[@]
+
+ops=(".iso" ".img")
+   movefiles OS ops[@]
+
+scr=(".sh")
+   movefiles Scripts scr[@]
+
+txt=(".txt" ".pdf" ".odt" ".doc" ".docx" ".rtf" )
+   movefiles Text txt[@]
+
+web=(".html" ".mhtml" ".js" ".json" ".css" ".csv" )
+   movefiles Webpages web[@]
+
+zip=(".zip" ".gz" ".bz2" ".xz" ".ZIP" ".rar")
+   movefiles Zip zip[@]
+
+mis=("")
+   movefiles Misc mis[@]
+
+#====================
+# cleaning files after they have been sorted
+# ad hoc error correction
+
+function cleanfiles {
+  cd ~/Downloads/MyHome/$2
+  for file in $3; do
+    case $1 in
+      trunc)
+        mv -- "$file" "${file%$4}" 2>/dev/null
+        ;;
+      misc)
+        mv $file ../Misc 2>/dev/null
+        ;;
+      *)  echo invalid command
+    esac
+  done
+}
+
+#cleanfiles 1mode       2where          3what           4mod
+ cleanfiles trunc       Scripts         *.sh            .sh
+ cleanfiles trunc       Audio           *.mp3.mp3       .mp3
+ cleanfiles misc        Graphics        audioclip-*
+
+echo "Done cleaning. If a file appears lost, check Misc."
