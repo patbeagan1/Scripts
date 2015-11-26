@@ -16,7 +16,7 @@ function movefiles {
         done
 }
 #===================================================
-# APK Audio Code Games Graphics OS Text Webpages
+# APK Audio Code Games Graphics OS Text Webpages mount
 
 apk=(".apk")
    movefiles APK apk[@]
@@ -53,6 +53,8 @@ zip=(".zip" ".gz" ".bz2" ".xz" ".ZIP" ".rar")
 
 mis=("")
    movefiles Misc mis[@]
+
+chkmk mount
 
 #====================
 # cleaning files after they have been sorted
