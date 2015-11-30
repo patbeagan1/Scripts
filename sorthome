@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo `date`
 echo "Cleaning up the Downloads folder..."
 if [ ! -d ~/Downloads/MyHome ]; then mkdir ~/Downloads/MyHome; fi
 
