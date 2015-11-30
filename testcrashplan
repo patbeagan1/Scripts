@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -e /Volumes/CrashplanLGRC\ 1 ] || [ -f /Volumes/CrashplanLGRC\ 1 ]; then
+    echo An extra directory was found
+    VOL=$(ls -l /Volumes)
+    echo -e "In the volumes folder, the following files were detected: \n\n$VOL. \n\nThe server will now attempt to reboot itself." | mail -s 'CrashLGRC multiple volume error detected' pbeagan@cs.umass.edu
+    sleep 10
+    sudo /sbin/shutdown -r now
+fi
