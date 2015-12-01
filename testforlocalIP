@@ -1,0 +1,16 @@
+function busy {
+	while [ true ]; do printf "." >&2; sleep 1; done
+}
+
+busy &
+
+for i in $(seq 1 10); 
+do 
+	ping -c3 -W0.3 10.0.0.$i & sleep 1 
+done \
+ | grep -B 1 ' 0% packet loss' \
+ | sed 's/ ping statistics//' \
+ | sed '/transmitted/d'
+
+kill $!
+exit

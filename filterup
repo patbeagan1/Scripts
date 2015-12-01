@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo "(copy|yank|pullmv|pullcp)"
+read a
+
+if [ "$a" == "copy" ]; then
+	find $1 -iname '*' -exec cp \{\} . \;
+elif [ "$a" == "yank" ]; then
+	find $1 -iname '*' -exec mv \{\} . \;
+elif [ "$a" == "pullmv" ]; then
+	find . -mindepth 2 -type f -print -exec mv {} . \;
+elif [ "$a" == "pullcp" ]; then
+        find . -mindepth 2 -type f -print -exec cp {} . \;
+fi
+
+echo "Remove empty directories? (yes|no)"
+read a
+
+if  [ $a = "yes" ]; then
+	find . -mindepth 2 -type d -print -exec rm -r {} \;
+fi
