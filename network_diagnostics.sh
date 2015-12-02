@@ -3,16 +3,22 @@
 echo "Network Diagnostics"
 
 #Physical level
-echo "Layer 1: Physical"
-echo "\tMake sure that your machine is physically connected to networking device."
-echo "\tIf wired, make sure that the ethernet cable is plugged in."
-echo "\tChecking the wireless card"
+echo "Layer 1: Link"
+echo -e "\tMake sure that your machine is physically connected to networking device."
+echo -e "\tIf wired, make sure that the ethernet cable is plugged in."
+echo -e "\tMake sure that the ethernet cable works when plugged into a different machine.\n"
+echo -e "\tChecking the wireless card"
 lspci | grep -i wireless
-read -p "Press enter to continue."
+read -p "Press enter to continue."; echo 
 
-echo "Layer 2: Data Link"
-echo "Layer 3: Network"
-echo "Layer 4: Transport"
-echo "Layer 5: Session"
-echo "Layer 6: Presentation"
-echo "Layer 7: Application"
+#internet layer
+echo "Layer 2: Internet"
+read -p "Press enter to continue."; echo 
+
+#transport layer
+echo "Layer 3: Transport"
+read -p "Press enter to continue."; echo 
+
+#application layer
+echo "Layer 4: Application"
+read -p "Press enter to continue."; echo 
