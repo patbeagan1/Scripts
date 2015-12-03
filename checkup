@@ -1,0 +1,79 @@
+echo -e "\e[0;32m"
+echo "Starting the checkup sequence"
+echo -e "\e[0m"
+
+echo -e "\e[0;31m"
+echo "klist"
+echo -e "\e[0m"
+klist
+
+echo -e "\e[0;31m"
+echo "klist -kte"
+echo -e "\e[0m"
+klist -kte
+
+echo -e "\e[0;31m"
+echo "net ads testjoin"
+echo -e "\e[0m"
+net ads testjoin
+
+echo -e "\e[0;31m"
+echo "net ads info"
+echo -e "\e[0m"
+net ads info
+
+echo -e "\e[0;31m"
+echo "net ads status"
+echo -e "\e[0m"
+net ads status
+
+echo -e "\e[0;31m"
+echo "net ads search FOR ADMIN"
+echo -e "\e[0m"
+net ads search "(&(objectClass=user)(sAMAccountName=Admin)"
+
+echo -e "\e[0;31m"
+echo "ldapsearch"
+echo -e "\e[0m"
+ldapsearch -H ldap://testad.ad.cs.umass.edu/ -Y GSSAPI -N -b "dc=ad,dc=cs,dc=umass,dc=edu" "(&(objectClass=user)(sAMAccountName=Admin))"
+
+echo -e "\e[0;31m"
+echo "testparm"
+echo -e "\e[0m"
+testparm
+
+echo -e "\e[0;31m"
+echo "net ads lookup admin"
+echo -e "\e[0m"
+net ads lookup admin
+
+echo -e "\e[0;31m"
+echo "id pbeagan"
+echo -e "\e[0m"
+id pbeagan
+
+echo -e "\e[0;34m"
+echo Output of authconfig:
+authconfig --test
+echo -e "\e[0m"
+
+echo -e "\e[0;33m"
+echo "kinit? (y|n)"
+echo -e "\e[0m"
+read p
+if [[ $p == 'y' ]]; then
+kinit -k LINUXAD$
+fi
+
+echo -e "\e[0;33m"
+echo "rejoin? (y|n)"
+echo -e "\e[0m"
+read p
+if [[ $p == 'y' ]]; then
+net ads join -k
+fi
+
+echo
+echo DONE
+echo
+
