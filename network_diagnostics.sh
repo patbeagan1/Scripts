@@ -8,17 +8,73 @@ echo "Network Diagnostics"
 ########                              ##########
 ################################################
 
+function reference {
+echo "
+ping
+traceroute/tracert
+ipconfig/ifconfig
+nslookup
+ip
+netstat
+dig
+pathping/mtr
+route
+apr
+ethtool
+"
+}
 function display_usage {
     echo "
-    This script attempts to diagnose and fix network errors on linux and mac machines
-    -v --verbose
-    -f --fix_errors
-    -h --help
-    "
+This script attempts to diagnose and fix network errors on linux and mac machines
+-v --verbose
+-f --fix_errors
+-h --help
+-r --reference
+"
+}
+function process {
+    echo "
+verify network adapter
+    installed
+    detected
+    up to date
+wired network
+    cable is connected to computer and router
+    good cable
+    network card light is on, green
+wireless
+    wifi is turned on
+    correct wifi hotspot
+    correct network authentication (SSID)
+adapter
+    make sure that the network can ping itself
+    ping 127.0.0.1
+    if that fails, one of:
+        network card is not physically installed correctly,
+        wrong drivers
+        bad card
+router
+    make sure that the router is turned on
+    ipconfig to look at gateway address
+    try to ping the gateway
+        if no reply, 
+            eithr router is set up incorrectly or connection is bad.
+            turn off computer
+            unplug the router
+            leave disconnectedfor 10 seconds
+            turn router and comp back on and attempt to reconnect
+firewall
+    make sure all of the required ports are open, like 80
+dhcp
+"
 }
 
 verbose=0
 fixing=0
+red=\e[033;31m
+dcolor=\e[0m
+
+
 #option parsing
 while [[ $# > 0 ]]
 do
@@ -36,6 +92,14 @@ case $key in
     display_usage
     exit
     ;;
+    -r|--reference)
+    reference
+    exit
+    ;;
+    -p|--process)
+    process
+    exit
+    ;;
     *)
           # unknown option
     ;;
@@ -43,55 +107,15 @@ esac
 shift # past argument or value
 done
 
+#=============================================
+#==========Getting user input=================
+#=============================================
 
-#ping
-#traceroute/tracert
-#ipconfig/ifconfig
-#nslookup
-#ip
-#netstat
-#dig
-#pathping/mtr
-#route
-#apr
-
-#verify network adapter
-#     installed
-#     detected
-#     up to date
-# wired network
-#     cable is connected to computer and router
-#     good cable
-#     network card light is on, green
-# wireless
-#     wifi is turned on
-#     correct wifi hotspot
-#     correct network authentication (SSID)
-# adapter
-#     make sure that the network can ping itself
-#     ping 127.0.0.1
-#     if that fails, one of:
-#         network card is not physically installed correctly,
-#         wrong drivers
-#         bad card
-# router
-#     make sure that the router is turned on
-#     ipconfig to look at gateway address
-#     try to ping the gateway
-#         if no reply, 
-#             eithr router is set up incorrectly or connection is bad.
-#             turn off computer
-#             unplug the router
-#             leave disconnectedfor 10 seconds
-#             turn router and comp back on and attempt to reconnect
-# firewall
-#     make sure all of the required ports are open, like 80
-# dhcp
 wired=0
 echo "Is the machine using a wired connection? (y|n)" 
 read -r wired
 if [ $wired = 'y' ] || [ $wired = 'yes' ]
-then echo Proceeding as a wired connection;
+then wired='y'; echo Proceeding as a wired connection;
 else echo Proceeding as a wireless connection; 
 fi
 echo
@@ -99,23 +123,66 @@ echo
 os=0
 echo "Is this machine OSX(1) or Linux(2)? (1|2)" 
 read -r os
-if [ $os -eq '1' ] 
-    then echo Proceeding as OSX;
-    else if [ $os = '2' ]
-        then echo Proceeding as Linux; 
+if [ $os -eq '1' ] || [ $os -eq 'mac' ]
+    then $os = 'mac'; echo Proceeding as OSX;
+    else if [ $os = '2' ] || [ $os -eq 'lin' ]
+        then $os = 'lin'; echo Proceeding as Linux; 
         else echo unrecognized operating system.
     fi
 fi
 echo
 
-#Physical level
-# printf "\e[033;31mLayer 1: Link\e[0m\n"
-# printf "Make sure that your machine is physically connected to networking device.\n"
-# printf "If wired, make sure that the ethernet cable is plugged in.\n"
-# printf "Make sure that the ethernet cable works when plugged into a different machine.\n"
-# printf "Checking the wireless card"
-# lspci | grep -i wireless
-# read -p -e "Press enter to continue."; echo 
+echo "Press enter after each step to continue."
+echo
+
+#=============================================
+#==========Physical level=====================
+#=============================================
+
+printf "\e[033;31mLayer 1: Hardware/Link\e[0m\n"
+if [ $wired = 'y' ];
+then 
+    printf "Make sure that the ethernet cable is plugged into your computer."; read; 
+    printf "Make sure that the ethernet cable is plugged into your router."; read; 
+    printf "Make sure that the ethernet cable works when plugged into a different machine."; read;
+    echo "Make sure that the lights on the ethernet port are on.
+    The left led denotes speed. 
+        Amber is 1000Mb/s, 
+        Green is 100Mb/s and 
+        Off is 10Mb/s or lower.
+    The right led denotes activity. 
+        On is an estabilshed link, 
+        Blinking is port activity and 
+        Off is no activity."; read; 
+    
+else
+    printf "Make sure that you have wireless turned on."; read
+    printf "Make sure that you are connected to the correct wireless hotspot."; read
+    printf "Make sure you have authenticated correctly to your hotspot."; read
+fi
+
+printf "Checking ports:"
+if [ $os = 'mac' ]; 
+then 
+    if ping -c 2 -t 500 127.0.0.1 > /dev/null
+    then printf "Self ping success"
+    else printf "Self ping failure"
+    fi
+    networksetup -listallhardwareports
+    ifconfig | grep ^en
+fi
+if [ $os = 'lin' ]; 
+then
+    if ping -c 2 -t 500 127.0.0.1 > /dev/null
+    then echo success
+    else echo failure
+    fi
+
+    # lspci | grep -i wireless
+    # ifconfig | grep 
+fi
+
+read -p "Press enter to continue.";  
 
 # #internet layer
 # printf "\e[033;31mLayer 2: Internet\e[0m"
