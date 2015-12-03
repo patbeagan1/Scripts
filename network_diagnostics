@@ -71,8 +71,8 @@ dhcp
 
 verbose=0
 fixing=0
-red=\e[033;31m
-dcolor=\e[0m
+red='\e[033;31m'
+dcolor='\e[0m'
 
 
 #option parsing
@@ -164,13 +164,19 @@ fi
 printf "Checking ports:"
 if [ $os = 'mac' ]; 
 then 
-    if ping -c 2 -t 500 127.0.0.1 > /dev/null
+    ( ping -c 2 -t 500 127.0.0.0 > /dev/null ) & sleep 2; kill $!
+    echo $?
+    if [ $? -eq 0 ]
     then printf "Self ping success"
-    else printf "Self ping failure"
+        networksetup -listallhardwareports
+        ifconfig | grep ^en
+    else printf "\nSelf ping failure\n"
+        printf "If you are unable to ping your own machine, there is a problem with your network card.\n"
+        printf "It is either physically installed wrong, has the wrong drivers installed, or has gone bad and needs to be replaced.\n"
+        exit
     fi
-    networksetup -listallhardwareports
-    ifconfig | grep ^en
 fi
+
 if [ $os = 'lin' ]; 
 then
     if ping -c 2 -t 500 127.0.0.1 > /dev/null
