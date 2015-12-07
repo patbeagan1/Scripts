@@ -22,14 +22,15 @@ function movefiles {
 apk=(".apk")
    movefiles APK apk[@]
 
-aud_prop=(".mp3")
-   chkmk Audio
-   movefiles Audio/Prop aud_prop[@]
-aud_free=( ".wav" ".mid")
-   movefiles Audio/Free aud_free[@]
+chkmk Audio
+aud_prop=(".mp3");              movefiles Audio/Prop aud_prop[@]
+aud_free=( ".wav" ".mid" ".ogg"); movefiles Audio/Free aud_free[@]
 
-cod=(".py" ".pyc" ".pyo" ".hs" ".c" ".cpp" ".java" ".class")
-   movefiles Code cod[@]
+chkmk Code
+codpy=(".py" ".pyc" ".pyo");    movefiles Code/python codpy[@]
+codc=( ".c" ".cpp" ".out");     movefiles Code/c codc[@]
+codhs(".hs");                   movefiles Code/haskell codhs[@]
+codj(".java" ".class");         movefiles Code/java codj[@]
 
 gam=(".gbc"".gba" ".nes" ".sav" )
    movefiles Games gam[@]
@@ -54,6 +55,9 @@ zip=(".zip" ".gz" ".bz2" ".xz" ".ZIP" ".rar")
 
 mis=("")
    movefiles Misc mis[@]
+   
+   chkmk Log
+   chkmk Mount
 
 #====================
 # cleaning files after they have been sorted
