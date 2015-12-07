@@ -4,7 +4,8 @@ function usage {
     echo "
     a7 = archive as tar.7z
     e7 = extract as tar.7z
-    tar = archive to a folder of tarballs 
+    tarall = archive to a folder of tarballs 
+    untarall = untar all of the contents of a directory
 
     use as (commmand option directory) to apply to that directory.
     "
@@ -17,7 +18,7 @@ if [ $1 = 'a7' ]; then
         tar cf bak.$name.$starttime.tar $2
         7za a bak.$name.$starttime.tar.7z bak.$name.$starttime.tar
         rm bak.$name.$starttime.tar
-        
+
 elif [ $1 = 'x7' ]; then
     if [ $2 =~ ".tar.7z" ]; then
         usage
@@ -27,18 +28,19 @@ elif [ $1 = 'x7' ]; then
     ret=$(echo $2 | sed s/\.7z//)
     tar xf $ret
     rm $ret
-    
+
 elif [ $1 = 'tarall' ]; then
     start=$(date '+%m.%d.%Y-%H.%M.%S')
-    
-    if [ ! -d backup-$start ]; then
-        mkdir backup-$start
+    dest=$2
+
+    if [[ ! -d "$dest/backup-$start" ]]; then
+        mkdir "$dest/backup-$start"
     fi
-    
+
     parray=()
     for i in *; do 
         if [ $i != 'OS' ] && [[ ! $i =~ "backup-" ]]; then 
-            tar cf ./backup-$start/$i.tar $i & 
+            tar cf $dest/backup-$start/$i.tar $i & 
             echo tarring $i...
             array+=($!)
         fi 
@@ -48,13 +50,13 @@ elif [ $1 = 'tarall' ]; then
         wait $i
     done
     echo creating main tar
-    time tar cf backup-$start.tar backup-$start
-    rm -r backup-$start
-    
+    time tar cf $dest/backup-$start.tar $dest/backup-$start
+    rm -r $dest/backup-$start
+
     echo "Would you like to gzip at this time? (y|n)"; read ret
     if [ $ret = 'y' ]; then
         echo zipping...
-        time gzip backup-$start.tar
+        time gzip $dest/backup-$start.tar
     else
         echo goodbye
     fi
