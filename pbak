@@ -11,6 +11,7 @@ function usage {
     "
 }
 
+if [ $# -lt 2 ]; then echo '<pbak> <type> <destdir>'; exit; fi
 
 if [ $1 = 'a7' ]; then
         starttime=$(date '+%m:%d:%Y-%H:%M:%S')
@@ -39,7 +40,7 @@ elif [ $1 = 'tarall' ]; then
 
     parray=()
     for i in *; do 
-        if [ $i != 'OS' ] && [[ ! $i =~ "backup-" ]]; then 
+        if [ $i != 'OS' ] && [[ ! $i =~ "backup-" ]] && [ $i != 'Backup' ]; then 
             tar cf $dest/backup-$start/$i.tar $i & 
             echo tarring $i...
             array+=($!)
@@ -49,14 +50,15 @@ elif [ $1 = 'tarall' ]; then
         echo waiting on $i
         wait $i
     done
-    echo creating main tar
-    time tar cf $dest/backup-$start.tar $dest/backup-$start
-    rm -r $dest/backup-$start
+    # echo creating main tar
+    # time tar cf $dest/backup-$start.tar $dest/backup-$start
+    # rm -r $dest/backup-$start
 
-    echo "Would you like to gzip at this time? (y|n)"; read ret
+    echo "Would you like to zip at this time? (y|n)"; read ret
     if [ $ret = 'y' ]; then
         echo zipping...
-        time gzip $dest/backup-$start.tar
+        time zip -r $dest/backup-$start.zip $dest/backup-$start
+        rm -r $dest/backup-$start
     else
         echo goodbye
     fi
