@@ -29,8 +29,8 @@ aud_free=( ".wav" ".mid" ".ogg"); movefiles Audio/Free aud_free[@]
 chkmk Code
 codpy=(".py" ".pyc" ".pyo");    movefiles Code/python codpy[@]
 codc=( ".c" ".cpp" ".out");     movefiles Code/c codc[@]
-codhs(".hs");                   movefiles Code/haskell codhs[@]
-codj(".java" ".class");         movefiles Code/java codj[@]
+codhs=(".hs");                   movefiles Code/haskell codhs[@]
+codj=(".java" ".class");         movefiles Code/java codj[@]
 
 gam=(".gbc"".gba" ".nes" ".sav" )
    movefiles Games gam[@]
