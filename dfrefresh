@@ -5,9 +5,9 @@ while [ "x$keypress" = "x" ]; do
   let count+=1
   echo -ne $count'\r'
   keypress="`cat -v`"
+  sleep .5
   clear
   df -l
-  sleep .5
 done
 
 #turning input blocking mode back on

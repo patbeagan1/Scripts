@@ -1,0 +1,20 @@
+#!/bin/bash
+
+function usage {
+	echo "
+	Changes hard tabs to soft tabs
+	Usage: remove_tabs <file> <number of spaces>
+	"
+	exit
+echo
+}
+
+if [ $# -lt 2 ]; then usage; fi
+
+n=""
+for i in $(seq 1 $2); do
+	n+=" "
+#	echo $i
+done
+
+sed -i "s/\t/$n/g" $1
