@@ -20,8 +20,8 @@ function movefiles {
 #===================================================
 # APK Audio Code Games Graphics OS Text Webpages
 
-apk=(".apk")
-   movefiles APK apk[@]
+adm=(".pem" ".crt" ".key" ".log")
+   movefiles Admin adm[@]
 
 chkmk Audio
 aud_prop=(".mp3");              movefiles Audio/Prop aud_prop[@]
@@ -57,7 +57,6 @@ zip=(".zip" ".gz" ".bz2" ".xz" ".ZIP" ".rar")
 mis=("")
    movefiles Misc mis[@]
    
-   chkmk Log
    chkmk Mount
    chkmk Backup
 
