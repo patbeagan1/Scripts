@@ -1,0 +1,18 @@
+#!/bin/bash
+
+function usage {
+  echo '
+-h display this help text
+-g generate
+
+'
+}
+
+case $1 in 
+  -h*)
+    usage
+    ;;
+  -g*)
+    echo hello
+    ;;
+esac
