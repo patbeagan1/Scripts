@@ -1,0 +1,4 @@
+#while [ -e .lock ]; do :; done;
+#touch .lock
+#rm .lock
+
