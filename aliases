@@ -1,11 +1,9 @@
 PATH=$PATH:~/Downloads/Myhome/Scripts
 
-alias ls='ls --color=auto'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
-alias gohome='cd ~/Downloads/MyHome'
 alias grep='grep --color=auto'
 alias l='ls -F'
 alias la='ls -A'
@@ -14,12 +12,18 @@ alias lla='ls -la'
 alias lr='ls -ralt'
 alias lt='ls | rev | sort | rev'
 alias ralt='ls -ralt'
-function drop { mv "$1" /tmp ; } 
+go() { 
+case "$1" in
+home$) cd ~/Downloads/MyHome;;
+"home\ and\ go\ to\ bed") echo Goodnight; exit;;
+esac
+}
+drop() { mv "$1" /tmp ; } 
 
 #keeping changes persistent on the same machine
 #it's getting wicked annoying to keep on source aliasing for each new terminal
 if grep -q 'source aliases' ~/.bash_profile; then
-    echo Aliased
+    echo Already Aliased
 else    
     echo source aliases >> ~/.bash_profile
     echo Now Aliased
