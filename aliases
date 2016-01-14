@@ -12,12 +12,17 @@ alias lla='ls -la'
 alias lr='ls -ralt'
 alias lt='ls | rev | sort | rev'
 alias ralt='ls -ralt'
+
 go() { 
 case "$1" in
-home$) cd ~/Downloads/MyHome;;
-"home\ and\ go\ to\ bed") echo Goodnight; exit;;
+home) cd ~/Downloads/MyHome;;
+scripts) cd ~/Downloads/MyHome/Scripts;;
+save) thesaveddirectory=$(pwd);;
+unsave) cd $thesaveddirectory;;
+*) echo Not a vaild location.;;
 esac
 }
+
 drop() { mv "$1" /tmp ; } 
 
 #keeping changes persistent on the same machine
