@@ -18,6 +18,7 @@ case "$1" in
 home) cd ~/Downloads/MyHome;;
 scripts) cd ~/Downloads/MyHome/Scripts;;
 save) thesaveddirectory=$(pwd);;
+reportsave) echo $thesaveddirectory;;
 unsave) cd $thesaveddirectory;;
 *) echo Not a vaild location.;;
 esac
