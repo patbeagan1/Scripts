@@ -14,11 +14,13 @@ alias lla='ls -la'
 alias lr='ls -ralt'
 alias lt='ls | rev | sort | rev'
 alias ralt='ls -ralt'
+function drop { mv "$1" /tmp ; } 
 
 #keeping changes persistent on the same machine
 #it's getting wicked annoying to keep on source aliasing for each new terminal
-if grep -q 'source aliases' ~/.bashrc; then
-    echo hello
+if grep -q 'source aliases' ~/.bash_profile; then
+    echo Aliased
 else    
-    echo source aliases >> ~/.bashrc
+    echo source aliases >> ~/.bash_profile
+    echo Now Aliased
 fi

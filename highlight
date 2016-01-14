@@ -1,0 +1,2 @@
+#!/bin/bash
+grep --color -i -E "$1|$" "$2"

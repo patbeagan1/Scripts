@@ -1,0 +1,10 @@
+netstat -aotulpn | sort -k3 #tested on centos
+arp-scan --localnet
+
+dig ping arp ipconfig nslookup host pathping telnet nmap traceroute tracert whois dnslookup ethtool
+
+#net-tools
+arp, hostname, ifconfig, ipmaddr, iptunnel, mii-tool, nameif, netstat, plipconfig, rarp, route, sttach, ethers
+
+#iproute2
+ip, ss, bridge, rtacct, rtmon, tc, ctstat, lnstat, nstat, routef, routel, rtstat and arp. tc
