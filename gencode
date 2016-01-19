@@ -148,6 +148,8 @@ echo '
 # Hello world in perl      #
 # Authored by:             #
 #==========================#
+use strict;
+use warnings;
 
 print "Hello World!\n";
 

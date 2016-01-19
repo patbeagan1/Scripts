@@ -1,21 +1,23 @@
 #!/bin/bash
 
-echo "(copy|yank|pullmv|pullcp)"
+echo "
+Recursively flattens a directory into a single folder 
+(copy|move)"
 read a
 
+mkdir filtered_files
 if [ "$a" == "copy" ]; then
-	find $1 -iname '*' -exec cp \{\} . \;
-elif [ "$a" == "yank" ]; then
-	find $1 -iname '*' -exec mv \{\} . \;
-elif [ "$a" == "pullmv" ]; then
-	find . -mindepth 2 -type f -print -exec mv {} . \;
-elif [ "$a" == "pullcp" ]; then
-        find . -mindepth 2 -type f -print -exec cp {} . \;
+	find $1 -iname '*' -exec cp \{\} ./filtered_files/ \;
+elif [ "$a" == "move" ]; then
+	find . -mindepth 2 -type f -print -exec mv {} ./filtered_files/ \;
 fi
 
 echo "Remove empty directories? (yes|no)"
 read a
-
 if  [ $a = "yes" ]; then
-	find . -mindepth 2 -type d -print -exec rm -r {} \;
+	echo "Are you sure? (yes|no)"
+	read a
+	if  [ $a = "yes" ]; then
+		find . -mindepth 2 -type d -print -exec rm -r {} \;
+	fi
 fi
