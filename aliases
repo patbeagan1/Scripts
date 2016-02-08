@@ -19,25 +19,19 @@ alias lla='ls -la'
 alias lr='ls -ralt'
 alias lt='ls | rev | sort | rev'
 alias ralt='ls -ralt'
-
-go() { 
-case "$1" in
-home) cd ~/Downloads/MyHome;;
-scripts) cd ~/Downloads/MyHome/Scripts;;
-save) thesaveddirectory=$(pwd);;
-reportsave) echo $thesaveddirectory;;
-unsave) cd $thesaveddirectory;;
-*) echo Not a vaild location.;;
-esac
-}
-
 drop() { mv "$1" /tmp ; } 
+source jump
 
 #keeping changes persistent on the same machine
 #it's getting wicked annoying to keep on source aliasing for each new terminal
 if grep -q 'source aliases' ~/.bash_profile; then
     echo Already Aliased
 else    
+    echo PATH=$PATH:/Users/pbeagan/Downloads/MyHome/Scripts >> ~/.bash_profile
     echo source aliases >> ~/.bash_profile
     echo Now Aliased
 fi
+
+cd ~/Downloads/Myhome/Scripts
+git pull
+cd

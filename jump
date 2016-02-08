@@ -1,0 +1,36 @@
+prevdir=()
+currdir=0
+
+j() {
+case "$1" in
+	home) 
+		cd ~/Downloads/MyHome;;
+	scripts) 
+		cd ~/Downloads/MyHome/Scripts;;
+	save) 
+		thesaveddirectory=$(pwd);;
+	reportsave) 
+		echo $thesaveddirectory;;
+	unsave) 
+		cd $thesaveddirectory;;
+	back)
+		cd prevdir[$(($currdir-1))]
+		$currdir-=1;;
+	*) 
+		echo Not a vaild location.;;
+esac
+}
+
+#function cd() {
+#    new_directory="$*";
+#    if [ $# -eq 0 ]; then 
+#        new_directory=${HOME};
+#    fi;
+#    builtin cd "${new_directory}" && ls
+#}
+
+#asdf(){#
+#	prevdir+=(`pwd`); cd $@
+#}
+
+#alias cd="forward1"

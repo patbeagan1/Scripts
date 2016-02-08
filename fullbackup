@@ -1,1 +1,3 @@
-rsync -aAXv /home /etc $1
+ls /usr/local/bin > /tmp/installed_commands
+if [ ! -e $i ]; then mkdir $1; fi
+rsync -avz /home /etc /tmp/installed_commands $1
