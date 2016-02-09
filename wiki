@@ -1,0 +1,1 @@
+lynx en.wikipedia.com/wiki/%1
