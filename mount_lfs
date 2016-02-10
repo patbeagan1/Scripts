@@ -1,0 +1,16 @@
+echo enter the mount directory
+read lfs
+echo enter the main partition /dev/X
+read d1
+echo enter the materials partition /dev/X
+read d2
+echo mounting or unmounting? \(y=mount\|n=unmount\)
+read mmm
+
+if [ $mmm == 'y' | $mmm == 'mount' ]; then
+	sudo mount -v -t ext4 $d1 $lfs
+	sudo mount -v -t ext4 $d2 $lfs/materials
+else
+	sudo umount $d2 $lfs/materials
+	sudo umount $d1 $lfs
+fi
