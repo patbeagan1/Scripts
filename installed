@@ -1,3 +1,7 @@
+ghc
+python
+python3
+
 # Debian, Ubuntu, Mint, derivatives
 # Uses the APT package manager
 # apt --installed list >> bin-dpkg
@@ -836,3 +840,7 @@ yelp-xsl/trusty,now 3.10.1-1 all [installed,automatic]
 zip/trusty,now 3.0-8 amd64 [installed]
 zlib1g/trusty,now 1:1.2.8.dfsg-1ubuntu1 amd64 [installed]
 zlib1g-dev/trusty,now 1:1.2.8.dfsg-1ubuntu1 amd64 [installed,automatic]
+# Arch
+# The pacman package manager
+# RHEL, Fedora, YellowDog, derivatives
+# YellowDog Updater, Modified

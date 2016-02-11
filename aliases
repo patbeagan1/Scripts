@@ -19,7 +19,7 @@ alias lla='ls -la'
 alias lr='ls -ralt'
 alias lt='ls | rev | sort | rev'
 alias ralt='ls -ralt'
-drop() { mv "$1" /tmp ; } 
+source drop
 source jump
 
 #keeping changes persistent on the same machine

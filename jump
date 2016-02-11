@@ -3,21 +3,13 @@ currdir=0
 
 j() {
 case "$1" in
-	home) 
-		cd ~/Downloads/MyHome;;
-	scripts) 
-		cd ~/Downloads/MyHome/Scripts;;
-	save) 
-		thesaveddirectory=$(pwd);;
-	reportsave) 
-		echo $thesaveddirectory;;
-	unsave) 
-		cd $thesaveddirectory;;
-	back)
-		cd prevdir[$(($currdir-1))]
-		$currdir-=1;;
-	*) 
-		echo Not a vaild location.;;
+	home) 		cd ~/Downloads/MyHome;;
+	scripts) 	cd ~/Downloads/MyHome/Scripts;;
+	save) 		thesaveddirectory=$(pwd);;
+	reportsave) 	echo $thesaveddirectory;;
+	unsave) 	cd $thesaveddirectory;;
+	back)		cd prevdir[$(($currdir-1))]; $currdir-=1;;
+	*) 		echo Not a vaild location.;;
 esac
 }
 
