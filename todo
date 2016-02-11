@@ -1,0 +1,6 @@
+case $1 in
+-r) cat ~/reminders.log; exit ;;
+-e) vi ~/reminders.log; exit ;;
+-h) echo -r read | -e edit ;;
+*) echo $@ >> ~/reminders.log ;;
+esac
