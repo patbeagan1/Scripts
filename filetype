@@ -1,1 +1,1 @@
-file * | sed /,.*//
+file * | sed s/,.*//

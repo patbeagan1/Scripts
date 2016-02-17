@@ -8,3 +8,25 @@ arp, hostname, ifconfig, ipmaddr, iptunnel, mii-tool, nameif, netstat, plipconfi
 
 #iproute2
 ip, ss, bridge, rtacct, rtmon, tc, ctstat, lnstat, nstat, routef, routel, rtstat and arp. tc
+
+/*NODE*/
+function isValidEmailAddress(val)
+{
+    var ok = true;
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    if(reg.test(val) == false) {
+      ok = false;
+    }
+
+    /*var bits = val.split("@");
+
+    if (! (bits.length == 2 &&
+           bits[0].length > 0 &&
+           bits[1].length > 0)
+       )
+    {
+        ok = false;
+    }*/
+
+    return(ok);
+}

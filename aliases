@@ -19,7 +19,8 @@ alias lla='ls -la'
 alias lr='ls -ralt'
 alias lt='ls | rev | sort | rev'
 alias ralt='ls -ralt'
-drop() { mv "$1" /tmp ; } 
+alias lynx='lynx -accept_all_cookies'
+source drop
 source jump
 
 #keeping changes persistent on the same machine
@@ -32,6 +33,12 @@ else
     echo Now Aliased
 fi
 
-cd ~/Downloads/Myhome/Scripts
+
+j scripts 
 git pull
 cd
+
+#looking at the reminders, if any are set
+if [ -e reminders.log ]; then echo; cat reminders.log; fi
+
+

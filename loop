@@ -1,7 +1,10 @@
-#1/bin/bash
-2>&1
+#/bin/bash
+
+clearvar=""
+if [ $1 == "-c" ]; then clearvar="clear"; shift; fi
+
 while :; do
   $*;
   sleep 0.5;
-  printf "\033c"
+  $clearvar
 done;
