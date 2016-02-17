@@ -1,1 +1,2 @@
-lynx en.wikipedia.com/wiki/%1
+#!/bin/bash
+lynx -accept_all_cookies http://en.wikipedia.org/wiki/Special:Search?search=$(echo $@ | sed 's/ /+/g')

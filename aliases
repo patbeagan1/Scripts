@@ -19,9 +19,9 @@ alias lla='ls -la'
 alias lr='ls -ralt'
 alias lt='ls | rev | sort | rev'
 alias ralt='ls -ralt'
+alias lynx='lynx -accept_all_cookies'
 source drop
 source jump
-function remind { todo $@; }
 
 #keeping changes persistent on the same machine
 #it's getting wicked annoying to keep on source aliasing for each new terminal
