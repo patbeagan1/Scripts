@@ -1,7 +1,6 @@
 #!/bin/bash
 
-j scripts
-#cd ~/Downloads/Myhome/Scripts
+cd ~/Downloads/Myhome/Scripts
 git pull
 git status
 git add --all
