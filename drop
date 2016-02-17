@@ -1,5 +1,10 @@
 if [ ! -e /tmp/DROPS ]; then mkdir /tmp/DROPS; fi
-if [ ! $# -eq 0 ]; then
-	mv "$1" /tmp/DROPS ; 
-	echo `pwd`/$1 >> /tmp/DROPS/0location
-fi
+while [ ! $# -eq 0 ]; do
+	
+	multicopy=$1
+	while [ -e /tmp/DROPS/$multicopy ]; do multicopy=$multicopy~; done
+	mv "$1" /tmp/DROPS/$multicopy ; 
+	echo `pwd`/$multicopy >> /tmp/DROPS/0location
+
+shift
+done
