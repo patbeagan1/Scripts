@@ -2,7 +2,7 @@
 
 # need to make sure that we get to the correct directory
 cd $HOME/Downloads/MyHome/Code/Scripts
-if [ `pwd` !eq $HOME/Downloads/MyHome/Code/Scripts ]; then exit; fi
+if [ `pwd` != "$HOME/Downloads/MyHome/Code/Scripts" ]; then exit; fi
 
 git pull
 git status
