@@ -1,10 +1,12 @@
 #!/bin/bash
 
-dumpdir="/home/patrick/Downloads/"
-myhomedir="/home/patrick/Downloads/MyHome/"
+#===================================================
+dumpdir="$HOME/Downloads/"
+myhomedir="$HOME/Downloads/MyHome/"
 
 dumpdir+="/"
 myhomedir+="/"
+#===================================================
 
 echo `date`
 echo "Cleaning up the $dumpdir folder..."
@@ -32,6 +34,7 @@ movefiles Audio audio[@]
 
 #===================================================
 #CODE BLOCK
+#chkmk etc is technically redundant, but this is clear
 code=(".py" ".pyc" ".pyo")
 code+=( ".c" ".cpp" ".out")
 code+=( ".hs" )
@@ -49,8 +52,8 @@ chkmk Code/Scripts
 #===================================================
 #ETC BLOCK
 etc=(".pem" ".crt" ".key" ".log" ".conf" ".rc"); 
-movefiles Etc config[@]
-touch Etc/CHECK_HIDDEN
+movefiles Code/etc config[@]
+touch Code/etc/CHECK_HIDDEN
 
 #===================================================
 #GAME BLOCK
