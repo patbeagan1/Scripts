@@ -16,6 +16,7 @@ os) 		cd ~/Downloads/MyHome/OS;;
 resources)	cd ~/Downloads/MyHome/Resources;;
 zip)		cd ~/Downloads/MyHome/Zip;;
 scripts) 	cd ~/Downloads/MyHome/Code/Scripts;;
+etc) 		cd ~/Downloads/MyHome/Code/etc;;
 
 #==========================================
 # single save directory
