@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#===========================
+outputfile="/home/patrick/Downloads/MyHome/Etc/.memo.log"
+#===========================
+
+case $1 in
+-r) cat $outputfile; exit ;;
+-e) vi  $outputfile; exit ;;
+-h) echo "-r read | -e edit | -h help | * for standard input" ;;
+*) echo `date +"%m/%d/%y   "` $@ >> $outputfile ;;
+esac
