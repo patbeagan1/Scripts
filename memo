@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#===========================
+outputdir="$HOME/Downloads/MyHome/Code/etc/.reminders"
+outputfile="memo.log"
+rem1="singular_events.rem"
+rem2="recurring_events.rem"
+rem3="todo"
+#===========================
+
+cd $outputdir
+case $1 in
+	-r) 		cat $outputfile; exit ;;
+	-e) 		vi  $outputfile; exit ;;
+	-h) 		echo "-r read | -e edit | -h help | * for standard input" ;;
+	singular)	shift; echo rem $@ >> $rem1;;
+	recurring)	shift; echo rem $@ >> $rem2;;
+	todo)		shift; echo rem $@ >> $rem3;;
+	*) 		echo `date +"%m/%d/%y   "` $@ >> $outputfile ;;
+esac
