@@ -1,5 +1,5 @@
-export PATH=$PATH:~/Downloads/MyHome/Code/Scripts
-export GOPATH=/home/patrick/Downloads/MyHome/Code/opt/gocode
+PATH=$PATH:~/Downloads/Myhome/Scripts
+
 
 ##MAC specific
 alias showFinderLocation='defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES && killall Finder'
@@ -25,24 +25,21 @@ source drop
 source jump
 
 #keeping changes persistent on the same machine
-#it's getting wicked annoying to keep on sourcing for each new terminal
-if grep -q '.bash_aliases' ~/.bash_profile; then
-echo Already Aliased
+#it's getting wicked annoying to keep on source aliasing for each new terminal
+if grep -q 'source aliases' ~/.bash_profile; then
+    echo Already Aliased
 else    
-echo " 
-if [ -e ~/Downloads/MyHome/Code/etc/.bash_aliases ];
-then source ~/Downloads/MyHome/Code/etc/.bash_aliases;
-fi
-" >> ~/.bash_profile
-echo Now Aliased
+    echo PATH=$PATH:/Users/pbeagan/Downloads/MyHome/Scripts >> ~/.bash_profile
+    echo source aliases >> ~/.bash_profile
+    echo Now Aliased
 fi
 
-#pulling from the Scripts repo on login
+
 j scripts 
 git pull
 cd
 
-#looking at the memos, if any are set
-echo;
-memo -r;
+#looking at the reminders, if any are set
+if [ -e .reminders.log ]; then echo; cat .reminders.log; fi
+
 
