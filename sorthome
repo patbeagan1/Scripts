@@ -1,12 +1,20 @@
 #!/bin/bash
 
+#===================================================
+dumpdir="$HOME/Downloads/"
+myhomedir="$HOME/Downloads/MyHome/"
+
+dumpdir+="/"
+myhomedir+="/"
+#===================================================
+
 echo `date`
-echo "Cleaning up the Downloads folder..."
-if [ ! -d ~/Downloads/MyHome ]; then mkdir ~/Downloads/MyHome; fi
+echo "Cleaning up the $dumpdir folder..."
+if [ ! -d $myhomedir ]; then mkdir $myhomedir; fi
 
 #===================================================
 function chkmk {
-        cd ~/Downloads/MyHome
+        cd $myhomedir
         if [ ! -d $1 ]; then echo Creating $1; mkdir $1; fi
 }
 function movefiles {
@@ -14,62 +22,76 @@ function movefiles {
         declare -a temp=("${!2}")
         for i in "${temp[@]}"; do
                 # breaks mac compat# mv --backup=numbered ~/Downloads/*$i ~/Downloads/MyHome/$1 2>/dev/null
-                mv ~/Downloads/*$i ~/Downloads/MyHome/$1 2>/dev/null
+		mv $dumpdir*$i $myhomedir$1 2>/dev/null
+		# echo $dumpdir*$i
         done
 }
+
 #===================================================
-# APK Audio Code Games Graphics OS Text Webpages
+#AUDIO BLOCK
+audio=(".mp3" ".wav" ".mid" ".ogg"); 
+movefiles Audio audio[@]
 
-adm=(".pem" ".crt" ".key" ".log")
-   movefiles Admin adm[@]
+#===================================================
+#CODE BLOCK
+#chkmk etc is technically redundant, but this is clear
+code=(".py" ".pyc" ".pyo")
+code+=( ".c" ".cpp" ".out")
+code+=( ".hs" )
+code+=(".java" ".class")         
+code+=(".sh" ".pl" ".scpt" ".applescript")
+movefiles Code code[@]
+chkmk Code/bin
+chkmk Code/etc
+chkmk Code/graveyard
+chkmk Code/opt
+chkmk Code/notes
+chkmk Code/src
+chkmk Code/Scripts
 
-chkmk Audio
-aud_prop=(".mp3");              movefiles Audio/Prop aud_prop[@]
-aud_free=( ".wav" ".mid" ".ogg"); movefiles Audio/Free aud_free[@]
+#===================================================
+#ETC BLOCK
+etc=(".pem" ".crt" ".key" ".log" ".conf" ".rc"); 
+movefiles Code/etc config[@]
+touch Code/etc/CHECK_HIDDEN
 
-chkmk Code
-chkmk Code/projects
-chkmk Code/scripts
-chkmk Code/tutorials
-chkmk Code/misc
-codpy=(".py" ".pyc" ".pyo");    movefiles Code codpy[@]
-codc=( ".c" ".cpp" ".out");     movefiles Code codc[@]
-codhs=(".hs");                   movefiles Code codhs[@]
-codj=(".java" ".class");         movefiles Code codj[@]
+#===================================================
+#GAME BLOCK
+game=(".gbc"".gba" ".nes" ".sav" )
+movefiles Games gam[@]
 
-gam=(".gbc"".gba" ".nes" ".sav" )
-   movefiles Games gam[@]
+#===================================================
+#GRAPHICS BLOCK
+graphics=(".png" ".gif" ".jpg" ".jpeg" ".svg" ".webm")
+movefiles Graphics gra[@]
 
-gra=(".png" ".gif" ".jpg" ".jpeg" "svg" ".webm")
-   movefiles Graphics gra[@]
-
+#===================================================
+#OPS BLOCK
 ops=(".iso" ".img")
-   movefiles OS ops[@]
+movefiles OS ops[@]
 
-scr=(".sh" ".pl" ".scpt" ".applescript")
-   movefiles Scripts scr[@]
-
+#===================================================
+#RESOURCES BLOCK
 txt=(".txt" ".pdf" ".odt" ".doc" ".docx" ".rtf" )
-   movefiles Text txt[@]
+web=(".html" ".mhtml" ".js" ".json" ".css" ".csv" ) 
+chkmk Resources
+movefiles Resources/text txt[@]
+movefiles Resources/webpages web[@]
 
-web=(".html" ".mhtml" ".js" ".json" ".css" ".csv" )
-   movefiles Webpages web[@]
-
+#===================================================
+#MISC BLOCK
 zip=(".zip" ".gz" ".bz2" ".xz" ".ZIP" ".rar")
-   movefiles Zip zip[@]
-
 mis=("")
-   movefiles Misc mis[@]
+movefiles Zip zip[@]
+movefiles Misc mis[@]
    
-   chkmk Mount
-   chkmk Backup
 
-#====================
+#===================================================
 # cleaning files after they have been sorted
 # ad hoc error correction
-
+# only used for the following block
 function cleanfiles {
-  cd ~/Downloads/MyHome/$2
+  cd $myhomedir/$2
   for file in $3; do
     case $1 in
       trunc)
@@ -84,7 +106,7 @@ function cleanfiles {
 }
 
 #cleanfiles 1mode       2where          3what           4mod
- cleanfiles trunc       Scripts         *.sh            .sh
+ cleanfiles trunc       Code/Scripts    *.sh            .sh
  cleanfiles trunc       Audio           *.mp3.mp3       .mp3
  cleanfiles misc        Graphics        audioclip-*
 

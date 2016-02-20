@@ -3,26 +3,31 @@ currdir=0
 
 j() {
 case "$1" in
-	home) 		cd ~/Downloads/MyHome;;
-	scripts) 	cd ~/Downloads/MyHome/Scripts;;
-	save) 		thesaveddirectory=$(pwd);;
-	reportsave) 	echo $thesaveddirectory;;
-	unsave) 	cd $thesaveddirectory;;
-	back)		cd prevdir[$(($currdir-1))]; $currdir-=1;;
-	*) 		echo Not a vaild location.;;
+
+#==========================================
+# the myhome directories
+home) 		cd ~/Downloads/MyHome;;
+audio)		cd ~/Downloads/MyHome/Audio;;
+code)		cd ~/Downloads/MyHome/Code;;
+games)		cd ~/Downloads/MyHome/Games;;
+graphics)	cd ~/Downloads/MyHome/Graphics;;
+misc)		cd ~/Downloads/MyHome/Misc;;
+os) 		cd ~/Downloads/MyHome/OS;;
+resources)	cd ~/Downloads/MyHome/Resources;;
+zip)		cd ~/Downloads/MyHome/Zip;;
+scripts) 	cd ~/Downloads/MyHome/Code/Scripts;;
+etc) 		cd ~/Downloads/MyHome/Code/etc;;
+
+#==========================================
+# single save directory
+save) 		thesaveddirectory=$(pwd);;
+reportsave) 	echo $thesaveddirectory;;
+unsave) 	cd $thesaveddirectory;;
+
+#==========================================
+# stacked directories
+back)		cd prevdir[$(($currdir-1))]; $currdir-=1;;
+*) 		echo Not a vaild location.;;
+
 esac
 }
-
-#function cd() {
-#    new_directory="$*";
-#    if [ $# -eq 0 ]; then 
-#        new_directory=${HOME};
-#    fi;
-#    builtin cd "${new_directory}" && ls
-#}
-
-#asdf(){#
-#	prevdir+=(`pwd`); cd $@
-#}
-
-#alias cd="forward1"

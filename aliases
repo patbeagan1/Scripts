@@ -1,5 +1,6 @@
 PATH=$PATH:~/Downloads/Myhome/Scripts
 
+
 ##MAC specific
 alias showFinderLocation='defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES && killall Finder'
 alias hideFinderLocation='defaults write com.apple.finder _FXShowPosixPathInTitle -bool NO && killall Finder'
