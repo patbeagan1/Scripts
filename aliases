@@ -39,6 +39,6 @@ git pull
 cd
 
 #looking at the reminders, if any are set
-if [ -e reminders.log ]; then echo; cat reminders.log; fi
+if [ -e .reminders.log ]; then echo; cat .reminders.log; fi
 
 
