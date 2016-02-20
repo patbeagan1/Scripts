@@ -1,12 +1,1 @@
-#!/bin/bash
-
-# need to make sure that we get to the correct directory
-cd $HOME/Downloads/MyHome/Code/Scripts
-if [ `pwd` != "$HOME/Downloads/MyHome/Code/Scripts" ]; then exit; fi
-
-git pull
-git status
-git add --all
-git commit -m "automatic update `date`"
-git push
-git status
+scriptsync
