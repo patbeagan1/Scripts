@@ -1,9 +1,1 @@
-#!/bin/bash
-
-cd ~/Downloads/Myhome/Scripts
-git pull
-git status
-git add --all
-git commit -m "automatic update `date`"
-git push
-git status
+scriptsync

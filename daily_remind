@@ -1,0 +1,1 @@
+cat <(remind ~/.reminders) <(memo -r) | mail -s "[daily_remind] Reminders from `hostname`" `cat ~/email`
