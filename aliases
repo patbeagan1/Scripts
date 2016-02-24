@@ -24,6 +24,7 @@ alias ralt='ls -ralt'
 alias lynx='lynx -accept_all_cookies'
 source drop
 source jump
+shopt -s histappend
 
 #keeping changes persistent on the same machine
 #it's getting wicked annoying to keep on sourcing for each new terminal
