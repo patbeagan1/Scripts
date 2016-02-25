@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/bash
 
 #===================================================
 dumpdir="$HOME/Downloads/"
@@ -62,7 +62,7 @@ movefiles Games game[@]
 
 #===================================================
 #GRAPHICS BLOCK
-graphics=(".png" ".gif" ".jpg" ".jpeg" ".svg" ".webm")
+graphics=(".png" ".PNG" ".gif" ".jpg" ".jpeg" ".svg" ".webm")
 movefiles Graphics graphics[@]
 
 #===================================================
