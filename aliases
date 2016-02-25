@@ -1,6 +1,7 @@
 export MYHOME=$HOME/Downloads/MyHome
 export PATH=$PATH:$MYHOME/Code/Scripts
 export GOPATH=$MYHOME/Code/opt/gocode
+export EDITOR=vi
 
 ##MAC specific
 alias showFinderLocation='defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES && killall Finder'
@@ -21,6 +22,7 @@ alias lla='ls -la'
 alias lr='ls -ralt'
 alias lt='ls | rev | sort | rev'
 alias ralt='ls -ralt'
+alias lsg='ls | grep -i '
 alias lynx='lynx -accept_all_cookies'
 source drop
 source jump
