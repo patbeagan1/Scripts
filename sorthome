@@ -51,19 +51,19 @@ chkmk Code/Scripts
 
 #===================================================
 #ETC BLOCK
-etc=(".pem" ".crt" ".key" ".log" ".conf" ".rc"); 
+config=(".pem" ".crt" ".key" ".log" ".conf" ".rc"); 
 movefiles Code/etc config[@]
 touch Code/etc/CHECK_HIDDEN
 
 #===================================================
 #GAME BLOCK
 game=(".gbc"".gba" ".nes" ".sav" )
-movefiles Games gam[@]
+movefiles Games game[@]
 
 #===================================================
 #GRAPHICS BLOCK
 graphics=(".png" ".gif" ".jpg" ".jpeg" ".svg" ".webm")
-movefiles Graphics gra[@]
+movefiles Graphics graphics[@]
 
 #===================================================
 #OPS BLOCK
