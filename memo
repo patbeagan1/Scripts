@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #===========================
-outputdir="$HOME/Downloads/MyHome/Code/etc/.reminders"
+outputdir="$HOME/Downloads/MyHome/Code/etc/reminders"
 outputfile="memo.log"
 rem1="singular_events.rem"
 rem2="recurring_events.rem"
