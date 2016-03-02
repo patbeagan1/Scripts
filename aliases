@@ -51,6 +51,6 @@ remind -c+ remind
 
 #looking at the memos, if any are set
 echo;
-memo -r;
+memo -pr1;
 
 cd
