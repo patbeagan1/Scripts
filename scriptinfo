@@ -1,0 +1,11 @@
+sysscript_category="Security"
+sysscript_message=/tmp/sysscript_message$0
+
+cat > $sysscript_message << END
+Category: $sysscript_category
+Machine:  $(hostname)
+Script:   $(pwd)/$0
+Date:     $(date)
+END
+
+cat $sysscript_message
