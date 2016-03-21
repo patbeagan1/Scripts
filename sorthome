@@ -45,7 +45,6 @@ chkmk Code/bin
 chkmk Code/etc
 chkmk Code/graveyard
 chkmk Code/opt
-chkmk Code/notes
 chkmk Code/src
 chkmk Code/Scripts
 
@@ -75,6 +74,7 @@ movefiles OS ops[@]
 txt=(".txt" ".pdf" ".odt" ".doc" ".docx" ".rtf" )
 web=(".html" ".mhtml" ".js" ".json" ".css" ".csv" ) 
 chkmk Resources
+chkmk Resources/notes
 movefiles Resources/text txt[@]
 movefiles Resources/webpages web[@]
 

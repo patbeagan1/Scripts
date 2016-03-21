@@ -1,5 +1,5 @@
 sysscript_category="Security"
-sysscript_message=/tmp/sysscript_message$0
+sysscript_message=/tmp/sysscript_message_$0
 
 cat > $sysscript_message << END
 Category: $sysscript_category
