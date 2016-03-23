@@ -50,8 +50,9 @@ git pull
 j etc
 remind -c+ remind
 
+#kind of annoying to see them all the time.
 #looking at the memos, if any are set
-echo;
-memo -pr1;
+#echo;
+#memo -pr1;
 
 cd
