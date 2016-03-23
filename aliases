@@ -1,6 +1,7 @@
 export MYHOME=$HOME/Downloads/MyHome
 export PATH=$PATH:$MYHOME/Code/Scripts
-export GOPATH=$MYHOME/Code/opt/gocode
+export GOPATH=/usr/local/go
+export GOBIN=/usr/local/go
 export EDITOR=vi
 
 ##MAC specific
