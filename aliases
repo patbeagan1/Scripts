@@ -26,9 +26,8 @@ alias ralt='ls -ralt'
 alias lsd='ls --group-directories-first'
 alias lsg='ls | grep -i '
 alias lynx='lynx -accept_all_cookies'
-manbash() {
-   man -P "less '+/^ *'${1}" bash
-}
+manbash() { man -P "less '+/^ *'${1}" bash; }
+jj () { javac ${1}; java $(echo ${1} | sed s/\.java// ); }
 source drop
 source jump
 shopt -s histappend
