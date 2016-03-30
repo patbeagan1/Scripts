@@ -1,0 +1,2 @@
+#!/bin/bash
+sed s/^/#/  | sed s/.*$1//
