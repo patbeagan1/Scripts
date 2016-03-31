@@ -41,11 +41,10 @@ code+=( ".hs" )
 code+=(".java" ".class")         
 code+=(".sh" ".pl" ".scpt" ".applescript")
 movefiles Code code[@]
-chkmk Code/bin
+chkmk Code/BIN
 chkmk Code/etc
-chkmk Code/graveyard
-chkmk Code/opt
-chkmk Code/src
+chkmk Code/GRAVE
+chkmk Code/APP
 chkmk Code/Scripts
 
 #===================================================
@@ -74,8 +73,8 @@ movefiles OS ops[@]
 txt=(".txt" ".pdf" ".odt" ".doc" ".docx" ".rtf" )
 web=(".html" ".mhtml" ".js" ".json" ".css" ".csv" ) 
 chkmk Resources
-chkmk Resources/notes
 movefiles Resources/text txt[@]
+chkmk Resources/text/notes
 movefiles Resources/webpages web[@]
 
 #===================================================
