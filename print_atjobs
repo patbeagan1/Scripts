@@ -1,0 +1,3 @@
+#!/bin/bash
+MAXJOB=$(atq | tail -n1 | awk '{ print $1; }')
+for each in $(seq 1 $MAXJOB); do echo "JOB $each"; at -c $each; done 
