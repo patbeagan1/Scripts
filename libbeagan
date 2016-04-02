@@ -1,0 +1,56 @@
+#!/bin/bash
+# Authored by PBeagan
+# This is a collection of some of the more useful scripts I've created or found
+# as long as they can be represented in less than 80col, no point in a full file
+# They are presented in this form to simplify importing into another systemi
+
+#TO USE:
+#if you type "source libbeagan" into a bash terminal, all of these functions will be available to you.
+
+#destroys those pesky dsstore files.
+destroy_dsstore_global () { sudo find / -name ".DS_Store" -depth -exec echo {} \;; }
+destroy_dsstore_local  () { find . -name .DS_Store -exec drop {} \;; }
+
+#jumps to the applicable part of the bash man file, for builtins
+manbash() { man -P "less '+/^ *'${1}" bash; }
+
+#java compile and run, for if you want to quick compile. Also see bsh.
+jj () { javac ${1}; java $(echo ${1} | sed s/\.java// ); }
+  
+#looks up the proposed term on the terminal version of wikipedia
+wiki () { lynx -accept_all_cookies http://en.wikipedia.org/wiki/Special:Search?search=$(echo $@ | sed 's/ /+/g'); }
+
+#installs homebrew on an OSX system
+install-homebrew () { ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; }
+
+#lists installed programs by size on a debian system
+list-installed () { dpkg-query -Wf '${Installed-size}\t${Package}\n' | column -t | sort -n; }
+
+#prints out the most commonly used commands in your hist file
+most_used () { story | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' |\
+    grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10; }
+
+#highlights the grepped contents of a file while still printing the whole doc
+hl ()       { grep --color -i -E "$1|$" "$2"; }
+
+#shows the stripped filetypes of everything in the directory
+filetype () { file * | sed s/,.*// ; } 
+
+#zips a directory of images into comic form
+comic ()    { zip -r $1.zip $1; mv $1.zip $1.cbz; }
+
+#shorthand for what is in the directories immediately below, better than ls *
+peek ()     { tree -L 2; }  
+
+#perform the same action every 0.5 seconds
+loop ()     { while :; do $*; sleep 0.5; if [ $1 == "-c" ]; then clear; fi; done; } 
+
+#use for delaying input, as in the movies
+echo_delay () { shift; echo "$@" | pv -qL 10; }
+
+#edit the last file. This can only be done if you have not cd'd since editing
+alias el="editlast"
+editlast () { vi $(find . -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" "); }
+    
+#prints out the contents of multiple files side by side, for when diff just can't cut it
+compare (){ pr -w $(tput cols) -m -t $@; } 
