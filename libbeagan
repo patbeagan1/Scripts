@@ -116,3 +116,29 @@ discover-brute-force () { sudo zcat /var/log/auth.log.*.gz | awk '/Failed passwo
 
 #display numbers like in the matrix
 show-matrix () { echo -e "\e[32m"; while :; do for i in {1..16}; do r="$(($RANDOM % 2))"; if [[ $(($RANDOM % 5)) == 1 ]]; then if [[ $(($RANDOM % 4)) == 1 ]]; then v+="\e[1m $r   "; else v+="\e[2m $r   "; fi; else v+="     "; fi; done; echo -e "$v"; v=""; done; }
+
+#remote copy using compression
+#ssh user@host "tar -zcf - /path/to/dir" > dir.tar.gz
+
+#stderr in color
+#mycommand 2> >(while read line; do echo -e "\e[01;31m$line\e[0m"; done)
+
+#show dd progress
+#sudo dd if=/dev/sdc bs=4096 | pv -s 2G | sudo dd bs=4096 of=~/USB_BLACK_BACKUP.IMG
+
+#.mode csv
+#-- use '.separator SOME_STRING' for something other than a comma.
+#.headers on
+#.out file.dmp
+#select * from MyTable;
+#If you want to reinsert into a different SQLite database then:
+
+#.mode insert <target_table_name>
+#.out file.sql
+#select * from MyTable;
+
+#weather
+weather () { curl http://wttr.in/Boston; }
+
+#time prompt
+tp () { PS1='\[\e]0;\w\a\]\n\[\e[00;33m\][\d \A \[\e[01;35m\]\w\[\e[00;33m\]]\[\e[0m\]$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]") $(__awsenv_ps1)\n\$ '; }
