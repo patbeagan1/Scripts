@@ -1,0 +1,10 @@
+readlink /sys/block/*
+lsblk
+echo enter the name of the device. \(sdX\)
+read device
+echo enter the name of the host \(hostX\)
+read host
+echo 1 > /sys/block/$device/device/delete
+echo "- - -" > /sys/class/scsi_host/$host/scan
+
+

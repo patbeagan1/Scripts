@@ -1,0 +1,13 @@
+USAGE="
+	determines if the first argument passed is an integer.
+"
+
+if [ "$1" -eq "$1" ] 2>/dev/null
+then
+    echo "$1 is an integer !!"
+else
+    echo "ERROR: first paramter must be an integer."
+    echo $USAGE
+    exit 1
+fi
+

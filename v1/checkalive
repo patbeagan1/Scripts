@@ -1,0 +1,13 @@
+while [ 1 ]; do
+	if ping -q -c 5 $1; then 
+		printf "\e[1;32malive\e[0m\n"; 
+	else 
+		printf "\e[1;31mdead\e[0m\n"; 
+	fi; 
+	for i in `seq 1 12`; do
+        printf "."	
+    	sleep 1;
+    done
+done
+
+

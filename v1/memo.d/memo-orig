@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#===========================
+outputdir="$HOME/Downloads/MyHome/Code/etc/remind/"
+outputfile="memo.log"
+rem1="singular_events.rem"
+rem2="recurring_events.rem"
+rem3="todo"
+#===========================
+
+cd $outputdir
+case $1 in
+	-r) 		cat $outputfile; exit ;;
+	-e) 		vi  $outputfile; exit ;;
+	-h) 		echo "-r read | -e edit | -h help | * for standard input" ;;
+	-pr*)		grep ":L$(echo $1 | sed s/-pr//):" $outputfile;;
+	-p*)	 	pri=$(echo $1 | sed s/-p//); shift
+			echo ":L$pri:   " $(date +"%s") "   " $(date +"%m/%d/%y") "   " $@ >> $outputfile ;;	
+	-d)		grep $2 $outputfile
+			echo "Are you sure? (y|n)"
+			read reallydrop
+			if [ $reallydrop == "y" ]||[ $reallydrop == "yes" ]; then 
+				echo Dropping.
+				cat $outputfile | sed /$2/d > $outputfile.tmp; 
+				mv $outputfile.tmp $outputfile; 
+			else 
+				echo Abort.
+			fi;;
+	*) 		echo ":L3:   " $(date +"%s") "   " $(date +"%m/%d/%y") "   " $@ >> $outputfile ;;
+esac

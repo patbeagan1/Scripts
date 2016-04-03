@@ -1,0 +1,3 @@
+cat /etc/*release
+w
+cat /etc/passwd | awk -F: '{print $1}' | sed s/\n\ //g 

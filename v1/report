@@ -1,0 +1,24 @@
+yellow 	() { echo -e "\e[0;34m"; }
+green 	() { echo -e "\e[0;32m"; }
+red 	() { echo -e "\e[0;31m"; }
+normal	() { echo -e "\e[0m"; }
+
+yellow
+echo "Starting the checkup sequence"
+normal
+
+green
+echo "Last logged in users"
+red
+last -5
+normal
+
+green
+echo "opened ports"
+netstat -tulp
+normal
+
+echo
+echo DONE
+echo
+

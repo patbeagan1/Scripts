@@ -1,0 +1,77 @@
+#!/bin/bash
+
+function usage {
+    echo "
+    a7 = archive as tar.7z
+    e7 = extract as tar.7z
+    tarall = archive to a folder of tarballs 
+    untarall = untar all of the contents of a directory
+
+    use as (commmand option directory) to apply to that directory.
+    "
+}
+
+if [ $# -lt 2 ]; then echo '<pbak> <type> <destdir>'; exit; fi
+
+if [ $1 = 'a7' ]; then
+        starttime=$(date '+%m:%d:%Y-%H:%M:%S')
+        name=$(echo $2 | sed 's/\///')
+        tar cf bak.$name.$starttime.tar $2
+        7za a bak.$name.$starttime.tar.7z bak.$name.$starttime.tar
+        rm bak.$name.$starttime.tar
+
+elif [ $1 = 'x7' ]; then
+    if [ $2 =~ ".tar.7z" ]; then
+        usage
+        exit
+    fi
+    7za x $2
+    ret=$(echo $2 | sed s/\.7z//)
+    tar xf $ret
+    rm $ret
+
+elif [ $1 = 'tarall' ]; then
+    start=$(date '+%m.%d.%Y-%H.%M.%S')
+    dest=$2
+
+    if [[ ! -d "$dest/backup-$start" ]]; then
+        mkdir "$dest/backup-$start"
+    fi
+
+    parray=()
+    for i in *; do 
+        if [ $i != 'OS' ] && [[ ! $i =~ "backup-" ]] && [ $i != 'Backup' ]; then 
+            tar cf $dest/backup-$start/$i.tar $i & 
+            echo tarring $i...
+            array+=($!)
+        fi 
+    done
+    for i in "${array[@]}"; do
+        echo waiting on $i
+        wait $i
+    done
+    # echo creating main tar
+    # time tar cf $dest/backup-$start.tar $dest/backup-$start
+    # rm -r $dest/backup-$start
+
+    echo "Would you like to zip at this time? (y|n)"; read ret
+    if [ $ret = 'y' ]; then
+        echo zipping...
+        time zip -r $dest/backup-$start.zip $dest/backup-$start
+        rm -r $dest/backup-$start
+    else
+        echo goodbye
+    fi
+    
+elif [ $1 = 'untarall' ]; then
+    for i in *; do
+        if [[ $i =~ ".tar" ]]; then
+            tar xf $i        
+        fi
+    done
+    
+else
+    usage
+    exit
+fi
+

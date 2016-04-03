@@ -1,0 +1,112 @@
+#/bin/bash
+
+#===================================================
+dumpdir="$HOME/Downloads/"
+myhomedir="$HOME/Downloads/MyHome/"
+
+dumpdir+="/"
+myhomedir+="/"
+#===================================================
+
+echo `date`
+echo "Cleaning up the $dumpdir folder..."
+if [ ! -d $myhomedir ]; then mkdir $myhomedir; fi
+
+#===================================================
+function chkmk {
+        cd $myhomedir
+        if [ ! -d $1 ]; then echo Creating $1; mkdir $1; fi
+}
+function movefiles {
+        chkmk $1
+        declare -a temp=("${!2}")
+        for i in "${temp[@]}"; do
+                # breaks mac compat# mv --backup=numbered ~/Downloads/*$i ~/Downloads/MyHome/$1 2>/dev/null
+		mv $dumpdir*$i $myhomedir$1 2>/dev/null
+		# echo $dumpdir*$i
+        done
+}
+
+#===================================================
+#AUDIO BLOCK
+audio=(".mp3" ".wav" ".mid" ".ogg"); 
+movefiles Audio audio[@]
+
+#===================================================
+#CODE BLOCK
+#chkmk etc is technically redundant, but this is clear
+code=(".py" ".pyc" ".pyo")
+code+=( ".c" ".cpp" ".out")
+code+=( ".hs" )
+code+=(".java" ".class")         
+code+=(".sh" ".pl" ".scpt" ".applescript")
+movefiles Code code[@]
+chkmk Code/BIN
+chkmk Code/etc
+chkmk Code/GRAVE
+chkmk Code/APP
+chkmk Code/Scripts
+
+#===================================================
+#ETC BLOCK
+config=(".pem" ".crt" ".key" ".log" ".conf" ".rc"); 
+movefiles Code/etc config[@]
+touch Code/etc/CHECK_HIDDEN
+
+#===================================================
+#GAME BLOCK
+game=(".gbc"".gba" ".nes" ".sav" )
+movefiles Games game[@]
+
+#===================================================
+#GRAPHICS BLOCK
+graphics=(".png" ".PNG" ".gif" ".jpg" ".jpeg" ".svg" ".webm")
+movefiles Graphics graphics[@]
+
+#===================================================
+#OPS BLOCK
+ops=(".iso" ".img")
+movefiles OS ops[@]
+
+#===================================================
+#RESOURCES BLOCK
+txt=(".txt" ".pdf" ".odt" ".doc" ".docx" ".rtf" )
+web=(".html" ".mhtml" ".js" ".json" ".css" ".csv" ) 
+chkmk Resources
+movefiles Resources/text txt[@]
+chkmk Resources/text/notes
+movefiles Resources/webpages web[@]
+
+#===================================================
+#MISC BLOCK
+zip=(".zip" ".gz" ".bz2" ".xz" ".ZIP" ".rar")
+mis=("")
+movefiles Zip zip[@]
+movefiles Misc mis[@]
+   
+
+#===================================================
+# cleaning files after they have been sorted
+# ad hoc error correction
+# only used for the following block
+function cleanfiles {
+  cd $myhomedir/$2
+  for file in $3; do
+    case $1 in
+      trunc)
+        mv -- "$file" "${file%$4}" 2>/dev/null
+        ;;
+      misc)
+        mv $file ../Misc 2>/dev/null
+        ;;
+      *)  echo invalid command
+    esac
+  done
+}
+
+#cleanfiles 1mode       2where          3what           4mod
+ cleanfiles trunc       Code/Scripts    *.sh            .sh
+ cleanfiles trunc       Audio           *.mp3.mp3       .mp3
+ cleanfiles misc        Graphics        audioclip-*
+
+echo "Done cleaning. If a file appears lost, check Misc."

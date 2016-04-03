@@ -1,0 +1,1 @@
+## while read i; do i=$(echo $i | sed s/.cs.umass.edu//g ); echo $i $(echo $i |sed s/:.*//g).$(echo $i | sed s/^.*\\///g) ; done < tmmmp

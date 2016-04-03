@@ -1,0 +1,10 @@
+#/bin/bash
+
+clearvar=""
+if [ $1 == "-c" ]; then clearvar="clear"; shift; fi
+
+while :; do
+  $*;
+  sleep 0.5;
+  $clearvar
+done;

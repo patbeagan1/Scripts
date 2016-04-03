@@ -1,0 +1,2 @@
+#!/bin/bash
+pr -w $(tput cols) -m -t $@
