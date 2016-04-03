@@ -1,0 +1,43 @@
+#!/bin/bash
+
+#===========================
+db="/home/patrick/Downloads/MyHome/Resources/memodb"
+table="memos"
+database_program="sqlite3"
+#===========================
+
+execdb () { echo "$dbmsg" | sqlite3 $db | sed "s/|/\t/g"; }
+
+#default priority
+pri=3 
+case $1 in
+	h|-h) 	echo "-r read | -e edit | -h help | -d drop  | * for standard input" 
+    ;;
+    e|-e) 	sqlite3 $db
+    ;;
+	r|-r) 	dbmsg="select * from memos;"
+    ;;
+    d|-d)	dbmsg="select * from memos where '$2' = timestamp;"
+            execdb
+#            echo "Are you sure? (y|n)"
+#		    read reallydrop
+#		    if [ $reallydrop == "y" ]||[ $reallydrop == "yes" ]; then 
+		    	echo Dropping.
+                dbmsg="delete from memos where '$2' = timestamp;"
+#		    else 
+#		    	echo Abort.
+#               exit 1
+#		    fi
+    ;;
+    pr|-pr)	dbmsg="select * from memos where priority like '%$2%';"
+    ;;
+	p|-p)	pri=$2; shift; shift
+            dbmsg="insert into memos values($pri,$(date +%s),\"$(date +%m/%d/%y)\",\"$@\");" 
+    ;;	
+    *) 	    dbmsg="insert into memos values(\":L3:\",\"$(date +%s)\",\"$(date +%m/%d/%y)\",\"$@\");"
+    ;;
+esac
+
+execdb
+
+
