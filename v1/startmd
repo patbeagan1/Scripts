@@ -1,0 +1,2 @@
+sudo mdadm --stop /dev/md0
+sudo mdadm --assemble --scan
