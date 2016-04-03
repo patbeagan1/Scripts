@@ -4,7 +4,7 @@ use warnings;
 
 use Path::Class;
 
-my $dir = dir('foo','bar'); # foo/bar
+my $dir = dir('.');#'foo','bar'); # foo/bar
 
 # Iterate over the content of foo/bar
 while (my $file = $dir->next) {
