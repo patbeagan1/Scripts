@@ -1,0 +1,289 @@
+#!/bin/bash
+
+####========================================================================================================================####
+####This script is designed to create new vhost files for apache configurations. This script will also allow you to add     ####       
+####SSL certificates if you choose to use one.                                                                              ####
+####                                                                                                                        ####
+####Written by: Christopher S                                                                                               ####
+####Linux Infrastructure Engineer, Credera                                                                                  ####
+####========================================================================================================================####
+
+set -e
+
+apache=/etc/apache2/sites-available
+httpd=/etc/httpd/sites-available
+
+vhostfunc () {
+   if [[ $ssl == "n" ]]
+    then
+echo "<VirtualHost *:80>
+ServerName $domain
+ServerAlias www.$domain
+DocumentRoot /var/www/$domain
+
+<Directory /var/www/$domain>
+	Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Require all granted
+</Directory>
+
+ErrorLog /var/log/apache2/$domain/error.log
+CustomLog /var/log/apache2/$domain/access.log combined
+
+
+</VirtualHost>" >> $apache/${domain}.conf
+        fi
+}
+
+sslvhostfunc () {
+        if [[ $ssl == "y" ]]
+         then
+           echo "<VirtualHost *:80>
+ServerName $domain
+ServerAlias www.$domain
+DocumentRoot /var/www/$domain
+
+	<Directory /var/www/$domain>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Require all granted
+	</Directory>
+
+ErrorLog /var/log/apache2/$domain/error.log
+CustomLog /var/log/apache2/$domain/access.log combined
+</VirtualHost>
+       
+<VirtualHost *:443>
+ServerName $domain
+ServerAlias www.$domain
+DocumentRoot /var/www/$domain
+
+SSLEngine on
+SSLCertificateFile /etc/ssl/$domain/crt
+SSLCertificateKeyFile /etc/ssl/$domain/key
+
+	<Directory /var/www/$domain>
+		Options INdexes FollowSymLinks MultiViews
+		AllowOverride All
+		Require all granted
+	</Directory>
+
+ErrorLog /var/log/apache2/$domain/error.log
+CustomLog /var/log/apache2/$domain/access.log combined
+</VirtualHost>" >> $apache/${domain}.conf
+        fi
+}
+
+
+if [[ $EUID != 0 ]]
+   then
+     echo "Please run this script as root...exiting"
+     exit
+fi
+
+
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+echo "First we need to check what OS we're running on."
+echo "Checking now...."
+
+#Check for Distro
+if [ -f /etc/lsb-release ]; then
+    . /etc/lsb-release
+    DISTRO=$DISTRIB_ID
+elif [ -f /etc/debian_version ]; then
+    DISTRO=Debian
+elif [ -f /etc/redhat-release ]; then
+    DISTRO="Red Hat"
+else
+    DISTRO=$(uname -s)
+fi
+
+echo "Looks like we're running $DISTRO"
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+
+read -p "Would you like to create a new vhost? (y/n) " vhost
+
+if [[ $vhost == "y" ]]
+then
+
+read -p "What is the new domain to create a vhost for? " domain
+read -p "Will this site be using SSL? y/n " ssl
+
+
+if [[ $ssl == "y" ]] 
+ then
+      read -p "Do you have the SSL Certificate and Key ready to paste? (y/n) " cert
+   if [[ $cert == "y" ]] 
+     then
+	 read -p "Please paste your certificate now: " certificate
+	 read -p "Please paste your key file now: " key
+	var1=$(openssl x509 -noout -subject -in certificate 2>/dev/null | cut -d = -f4| cut -d / -f1)
+	  if [[ $? == 0 ]] 
+	    then
+	      if [[ $var1 == $domain ]]
+	          then
+		    echo "Common name match"
+		    mkdir -p /etc/ssl/$domain
+		    echo $key >> /etc/ssl/$domain/key
+		    echo $certificate >> /etc/ssl/$domain/crt
+	          else 
+		    echo "Common name mismatch..This script will not exit."
+		    exit
+              fi
+            else
+	      echo "Invalid Certificate or Key"
+	      exit
+	 fi	 
+    fi
+
+
+   if [[ $cert == "n" ]]
+     then
+	 mkdir -p /etc/ssl/$domain
+	 echo "SSL Directory created. Do not choose to reload apache as it will fail until you have your SSL certs installed in this /etc/ssl/$domain"
+   fi
+fi
+
+
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+
+#If Ubuntu then do the following
+if [[ "$DISTRO" == "Ubuntu" ]]
+ then 
+
+    echo "Your Distro is Ubuntu so we are creating the vhost file in /etc/apache2/sites-available"
+    touch $apache/${domain}.conf
+    mkdir -p /var/www/$domain
+    mkdir -p /var/log/apache2/$domain
+
+
+
+vhostfunc
+
+
+sslvhostfunc
+
+
+
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+echo "New Vhost created /etc/apache2/sites-available/$domain"
+
+
+#Ask user if they want to restart Apache
+	if [[ $cert == "y" ]]
+	 then
+	   read -p "Would you like to restart Apache now and enable this domain? NOTE: If your SSL Certificate is incorrect this could cause apache to not restart. (y/n)" apachereload
+
+		if [[ $apachereload == "y" ]]
+	 	 then
+	   	   echo "Performing configuration check..."
+		     apache2ctl -t
+		     result=$?
+		     if [[ $result -eq 0 ]]
+			then 
+			   echo "Configuration pass"
+			   a2ensite ${domain}.conf
+			   service apache2 reload
+			else
+			   echo "Failed"
+	      	    fi
+		fi 
+
+	fi
+
+	if [[ $apachereload == "n" ]]
+	 then
+	   echo "To enable this site type 'a2ensite ${domain}.conf' and then 'service apache2 reload'"
+	fi
+
+
+
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+echo "New Log file created in /var/log/$domain/"
+echo "New DocumentRoot created in /var/www/$domain/"
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+
+
+#If Red Hat then do the following
+if [[ "$DISTRO" == "Red Hat" ]]
+ then
+
+#Check to see if httpd is using sites-available
+	if [[ ! -d $httpd ]]
+	 then 
+	   echo "Directory not found...creating now."
+	   mkdir -p /etc/httpd/sites-available
+	   mkdir -p /etc/httpd/sites-enabled
+	fi 
+
+echo "Appending httpd.conf to include new vhost directories"
+echo "Include /etc/httpd/sites-enabled/*.conf" >> /etc/httpd/httpd.conf
+
+touch $httpd/${domain}.conf/httpd
+mkdir -p /var/www/$domain
+mkdir -p /var/log/httpd/$domain
+
+
+
+vhostfunc
+
+
+
+sslvhostfunc
+
+
+
+
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+echo "New Vhost created /etc/httpd/sites-available/$domain"
+
+#Ask user if they want to reload apache and enable new vhost to be live
+	if [[ $cert == "y" ]]
+	 then
+	   read -p "Would you like to restart Apache now and enable this domain? NOTE: If your configuration has syntax errors this could cause apache to not restart. (y/n)" apachereload
+
+
+		if [[ $apachereload == y ]]
+	 	 then
+	   	   echo "Creating symbolic link..."
+	  	   ln -s /etc/httpd/sites-available/${domain}.conf /etc/httpd/sites-enabled/
+	   	   echo "Reloading httpd service..."
+	   	   service httpd reload
+		fi
+	fi
+
+
+	if [[ $apachereload == "n" ]]
+	 then
+	   echo "To enable this site type 'ln -s /etc/httpd/sites-available/${domain}.conf /etc/httpd/sites-enabled/' and then a 'service httpd reload'"
+	fi
+
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+echo "New Log file created in /var/log/$domain/"
+echo "New DocumentRoot created in /var/www/$domain/"
+
+	if [[ $ssl == "y" ]]
+	 then
+	   echo "New SSL Directory created at /etc/ssl/$domain/"
+	fi
+
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+
+fi
+fi
+fi
+
+if [[ $vhost == "n" ]]
+ then
+   echo "Exiting script..."
+   exit 
+fi

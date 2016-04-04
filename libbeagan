@@ -2,7 +2,8 @@
 # Authored by PBeagan
 # This is a collection of some of the more useful scripts I've created or found
 # as long as they can be represented in less than 80col, no point in a full file
-# They are presented in this form to simplify importing into another systemi
+# still want as functions so args can be passed to them
+# They are presented in this form to simplify importing into another system
 
 #TO USE:
 #if you type "source libbeagan" into a bash terminal, all of these functions will be available to you.
@@ -125,17 +126,6 @@ show-matrix () { echo -e "\e[32m"; while :; do for i in {1..16}; do r="$(($RANDO
 
 #show dd progress
 #sudo dd if=/dev/sdc bs=4096 | pv -s 2G | sudo dd bs=4096 of=~/USB_BLACK_BACKUP.IMG
-
-#.mode csv
-#-- use '.separator SOME_STRING' for something other than a comma.
-#.headers on
-#.out file.dmp
-#select * from MyTable;
-#If you want to reinsert into a different SQLite database then:
-
-#.mode insert <target_table_name>
-#.out file.sql
-#select * from MyTable;
 
 #weather
 weather () { curl http://wttr.in/Boston; }

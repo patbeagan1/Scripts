@@ -1,0 +1,1 @@
+for i in $(awk -F: '{print $2}' /etc/trueuserdomains); do top -bn 1 -u "$i"|awk '/^[0-9]/ {sumCpu +=$9; sumRam += $10;} END {if ((sumCpu > 0) || (sumRam > 0)) print "User '$i':\t\tTotal %RAM: ", sumRam, "\t\tTotal %CPU: ", sumCpu; else print "User '$i' is not showing resource usage";}'; done |sort -nk 5
