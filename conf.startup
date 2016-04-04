@@ -1,0 +1,38 @@
+
+export MYHOME=$HOME/Downloads/MyHome
+export PATH=$PATH:$MYHOME/Code/Scripts
+export GOPATH=/usr/local/go
+export GOBIN=/usr/local/go
+export EDITOR=vi
+export HISTTIMEFORMAT="%F %T "
+
+cd $MYHOME/Code/Scripts
+source conf.aliases
+source libbeagan
+
+#keeping changes persistent on the same machine
+#it's getting wicked annoying to keep on sourcing for each new terminal
+if grep -q "$MYHOME/Code/Scripts/conf.startup" ~/.bashrc; then
+        echo Already Aliased
+else    
+
+        echo " 
+if [ -e $MYHOME/Code/Scripts/conf.startup ]; then 
+source $MYHOME/Code/Scripts/conf.startup;
+fi" >> ~/.bashrc
+        echo Now Aliased
+fi
+
+#pulling from the Scripts repo on login
+j scripts 
+git pull
+
+j etc
+remind -c+ remind
+
+#kind of annoying to see them all the time.
+#looking at the memos, if any are set
+#echo;
+#memo -pr1;
+
+cd

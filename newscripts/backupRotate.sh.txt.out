@@ -1,0 +1,66 @@
+#!/bin/bash
+trailingSlash='\/$'
+while getopts  ":d:n:s:" opt; do
+case $opt in
+d)
+if [ -d "$OPTARG" ] && [[ $OPTARG =~ $trailingSlash ]]
+then
+a0="$OPTARG"
+else
+echo "-d must be an existing directory WITH A TRAILING SLASH!"
+exit 1
+fi
+;;
+n)
+if [ "$OPTARG" -gt 1 ]
+then
+((limit="$OPTARG"))
+else
+echo "-n must be an integer larger than 1"
+exit 1
+fi
+;;
+s)
+if [ -d "$OPTARG" ] && [[ $OPTARG =~ $trailingSlash ]]
+then
+sourceDir="$OPTARG"
+else
+echo "-s must be the source directory, WITH A TRAILING SLASH!"
+exit 1
+fi
+;;
+\?)
+echo "Invalid option"
+;;
+:)
+echo "Option requires an argument"
+;;
+esac
+done
+rotate(){
+sourceFile=$(/bin/ls -lAt $sourceDir |head -n 2 |awk '{if (NR>1) print $NF}')
+cp -r $sourceDir$sourceFile $a0
+touch $a0$sourceFile
+}
+getCount(){
+((numFiles=$(ls -lAht $a0 |wc -l) - 1))
+}
+getOldest(){
+oldestFile=$(/bin/ls -lAt $a0 |tail -n 1 |awk '{print $NF}')
+}
+trimFat(){
+getCount
+while [ "$numFiles" -gt "$limit" ]
+do
+getOldest
+rm -rf $a0/$oldestFile
+getCount
+done
+}
+if [ -e "$sourceDir" ]
+then
+rotate
+else
+echo "Skipping rotation!"
+fi
+trimFat

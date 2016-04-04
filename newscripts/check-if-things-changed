@@ -1,0 +1,2 @@
+ inotifywait -r ~/Downloads -m | while read file; do echo $file; done;
+

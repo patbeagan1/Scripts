@@ -1,0 +1,10 @@
+#.mode csv
+#-- use '.separator SOME_STRING' for something other than a comma.
+#.headers on
+#.out file.dmp
+#select * from MyTable;
+#If you want to reinsert into a different SQLite database then:
+
+#.mode insert <target_table_name>
+#.out file.sql
+#select * from MyTable;

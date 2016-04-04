@@ -1,0 +1,5 @@
+if [ ! -e tiddly ]; then mkdir tiddly; fi
+mv *.html tiddly
+cd tiddly
+i=$(ls -t | head -1)
+mv $i ..$i
