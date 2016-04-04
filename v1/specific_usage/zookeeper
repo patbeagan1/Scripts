@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-# so that I can just do zookeeper start|status|stop|etc...
-
-ZOOPIDFILE=/usr/local/var/run/zookeeper/data/zookeeper_server.pid /usr/local/Cellar/zookeeper/3.4.7/libexec/bin/zkServer.sh $1 /usr/local/etc/zookeeper/zoo.cfg
-
