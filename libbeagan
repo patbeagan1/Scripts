@@ -98,9 +98,6 @@ speedtest () { dd if=/dev/zero of=/dev/null bs=1M count=32768; }
 ps-diff () { diff <(lsof -p $1) <(sleep 10; lsof -p $1); }
 
 #looks up the word in the dictionary
-<<<<<<< HEAD
-dictionary () { curl dict://dict.org/d:$1; }
-=======
 dictionary () { curl dict://dict.org/d:$1; }
 
 #check the ssl cert dates on a site
@@ -135,4 +132,3 @@ weather () { curl http://wttr.in/Boston; }
 
 #time prompt
 tp () { PS1='\[\e]0;\w\a\]\n\[\e[00;33m\][\d \A \[\e[01;35m\]\w\[\e[00;33m\]]\[\e[0m\]$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]") $(__awsenv_ps1)\n\$ '; }
->>>>>>> f79dae11a5ce63e4419991319b15775b698c17cd
