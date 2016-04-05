@@ -24,8 +24,8 @@ fi" >> ~/.bashrc
 fi
 
 #pulling from the Scripts repo on login
-j scripts 
-git pull
+#j scripts 
+#git pull
 
 j etc
 remind -c+ remind
