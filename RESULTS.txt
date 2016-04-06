@@ -1,0 +1,1738 @@
+                  Boot Info Script 0.61      [1 April 2012]
+
+
+============================= Boot Info Summary: ===============================
+
+ => Grub2 (v1.99) is installed in the MBR of /dev/sda and looks at sector 
+    937156608 of the same hard drive for core.img. core.img is at this 
+    location and looks in partition 112 for .
+ => No boot loader is installed in the MBR of /dev/sdb.
+
+sda1: __________________________________________________________________________
+
+    File system:       vfat
+    Boot sector type:  FAT32
+    Boot sector info:  No errors found in the Boot Parameter Block.
+    Operating System:  
+    Boot files:        /efi/ubuntu/grubx64.efi /efi/ubuntu/MokManager.efi 
+                       /efi/ubuntu/shimx64.efi
+
+sda2: __________________________________________________________________________
+
+    File system:       ext4
+    Boot sector type:  Grub2 (v1.99)
+    Boot sector info:  Grub2 (v1.99) is installed in the boot sector of sda2 
+                       and looks at sector 240634944 of the same hard drive 
+                       for core.img. core.img is at this location and looks 
+                       in partition 112 for .
+    Operating System:  Ubuntu 14.04.4 LTS
+    Boot files:        /boot/grub/grub.cfg /etc/fstab 
+                       /boot/extlinux/extlinux.conf
+
+sda3: __________________________________________________________________________
+
+    File system:       swap
+    Boot sector type:  -
+    Boot sector info: 
+
+sda4: __________________________________________________________________________
+
+    File system:       BIOS Boot partition
+    Boot sector type:  Grub2's core.img
+    Boot sector info: 
+
+sda5: __________________________________________________________________________
+
+    File system:       ext4
+    Boot sector type:  -
+    Boot sector info: 
+    Operating System:  Linux Mint 17.1 Rebecca
+    Boot files:        /boot/grub/grub.cfg /etc/fstab
+
+sdb1: __________________________________________________________________________
+
+    File system:       ext4
+    Boot sector type:  -
+    Boot sector info: 
+    Mounting failed:   mount: wrong fs type, bad option, bad superblock on /dev/sdb1,
+       missing codepage or helper program, or other error
+       In some cases useful info is found in syslog - try
+       dmesg | tail  or so
+
+
+sdb2: __________________________________________________________________________
+
+    File system:       ext4
+    Boot sector type:  -
+    Boot sector info: 
+    Operating System:  Raspbian GNU/Linux 8
+    Boot files:        /etc/fstab
+
+============================ Drive/Partition Info: =============================
+
+Drive: sda _____________________________________________________________________
+
+Disk /dev/sda: 750.2 GB, 750156374016 bytes
+255 heads, 63 sectors/track, 91201 cylinders, total 1465149168 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+
+Partition  Boot  Start Sector    End Sector  # of Sectors  Id System
+
+/dev/sda1                   1 1,465,149,167 1,465,149,167  ee GPT
+
+
+GUID Partition Table detected.
+
+Partition    Start Sector    End Sector  # of Sectors System
+/dev/sda1           2,048     1,050,623     1,048,576 EFI System partition
+/dev/sda2       1,050,624   937,154,941   936,104,318 Data partition (Linux)
+/dev/sda3   1,452,773,376 1,465,147,391    12,374,016 Swap partition (Linux)
+/dev/sda4     937,156,608   937,158,655         2,048 BIOS Boot partition
+/dev/sda5     937,158,656 1,452,773,375   515,614,720 Data partition (Linux)
+
+Drive: sdb _____________________________________________________________________
+
+Disk /dev/sdb: 3965 MB, 3965190144 bytes
+122 heads, 62 sectors/track, 1023 cylinders, total 7744512 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+
+Partition  Boot  Start Sector    End Sector  # of Sectors  Id System
+
+/dev/sdb1               8,192       131,071       122,880   c W95 FAT32 (LBA)
+/dev/sdb2             131,072     2,848,767     2,717,696  83 Linux
+
+
+"blkid" output: ________________________________________________________________
+
+Device           UUID                                   TYPE       LABEL
+
+/dev/sda1        E799-CB4B                              vfat       
+/dev/sda2        c62ba28c-9447-4ace-8c58-b772d496e919   ext4       
+/dev/sda3        c94563d8-369d-45e5-96e4-cd007aabd846   swap       
+/dev/sda5        70f6bd77-0d3d-4c96-a05e-68c2e75bdc55   ext4       
+/dev/sdb1        93c1ac3c-b8f2-4256-b67c-cc0b70ea6b92   ext4       
+/dev/sdb2        cea0b7ae-2fbc-4f01-8884-3cb5884c8bb7   ext4       
+
+================================ Mount points: =================================
+
+Device           Mount_Point              Type       Options
+
+/dev/sda1        /boot/efi                vfat       (rw)
+/dev/sda2        /                        ext4       (rw,errors=remount-ro)
+/dev/sda5        /media/patrick/70f6bd77-0d3d-4c96-a05e-68c2e75bdc55 ext4       (rw,nosuid,nodev,uhelper=udisks2)
+/dev/sdb2        /media/patrick/cea0b7ae-2fbc-4f01-8884-3cb5884c8bb7 ext4       (rw,nosuid,nodev,uhelper=udisks2)
+
+
+=========================== sda2/boot/grub/grub.cfg: ===========================
+
+--------------------------------------------------------------------------------
+#
+# DO NOT EDIT THIS FILE
+#
+# It is automatically generated by grub-mkconfig using templates
+# from /etc/grub.d and settings from /etc/default/grub
+#
+
+### BEGIN /etc/grub.d/00_header ###
+if [ -s $prefix/grubenv ]; then
+  set have_grubenv=true
+  load_env
+fi
+if [ "${next_entry}" ] ; then
+   set default="${next_entry}"
+   set next_entry=
+   save_env next_entry
+   set boot_once=true
+else
+   set default="0"
+fi
+
+if [ x"${feature_menuentry_id}" = xy ]; then
+  menuentry_id_option="--id"
+else
+  menuentry_id_option=""
+fi
+
+export menuentry_id_option
+
+if [ "${prev_saved_entry}" ]; then
+  set saved_entry="${prev_saved_entry}"
+  save_env saved_entry
+  set prev_saved_entry=
+  save_env prev_saved_entry
+  set boot_once=true
+fi
+
+function savedefault {
+  if [ -z "${boot_once}" ]; then
+    saved_entry="${chosen}"
+    save_env saved_entry
+  fi
+}
+function recordfail {
+  set recordfail=1
+  if [ -n "${have_grubenv}" ]; then if [ -z "${boot_once}" ]; then save_env recordfail; fi; fi
+}
+function load_video {
+  if [ x$feature_all_video_module = xy ]; then
+    insmod all_video
+  else
+    insmod efi_gop
+    insmod efi_uga
+    insmod ieee1275_fb
+    insmod vbe
+    insmod vga
+    insmod video_bochs
+    insmod video_cirrus
+  fi
+}
+
+if [ x$feature_default_font_path = xy ] ; then
+   font=unicode
+else
+insmod part_gpt
+insmod ext2
+set root='hd0,gpt2'
+if [ x$feature_platform_search_hint = xy ]; then
+  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+else
+  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+fi
+    font="/usr/share/grub/unicode.pf2"
+fi
+
+if loadfont $font ; then
+  set gfxmode=auto
+  load_video
+  insmod gfxterm
+  set locale_dir=$prefix/locale
+  set lang=en_US
+  insmod gettext
+fi
+terminal_output gfxterm
+if [ "${recordfail}" = 1 ] ; then
+  set timeout=30
+else
+  if [ x$feature_timeout_style = xy ] ; then
+    set timeout_style=hidden
+    set timeout=0
+  # Fallback hidden-timeout code in case the timeout_style feature is
+  # unavailable.
+  elif sleep --interruptible 0 ; then
+    set timeout=0
+  fi
+fi
+### END /etc/grub.d/00_header ###
+
+### BEGIN /etc/grub.d/05_debian_theme ###
+set menu_color_normal=white/black
+set menu_color_highlight=black/light-gray
+if background_color 44,0,30,0; then
+  clear
+fi
+### END /etc/grub.d/05_debian_theme ###
+
+### BEGIN /etc/grub.d/10_linux ###
+function gfxmode {
+	set gfxpayload="${1}"
+	if [ "${1}" = "keep" ]; then
+		set vt_handoff=vt.handoff=7
+	else
+		set vt_handoff=
+	fi
+}
+if [ "${recordfail}" != 1 ]; then
+  if [ -e ${prefix}/gfxblacklist.txt ]; then
+    if hwmatch ${prefix}/gfxblacklist.txt 3; then
+      if [ ${match} = 0 ]; then
+        set linux_gfx_mode=keep
+      else
+        set linux_gfx_mode=text
+      fi
+    else
+      set linux_gfx_mode=text
+    fi
+  else
+    set linux_gfx_mode=keep
+  fi
+else
+  set linux_gfx_mode=text
+fi
+export linux_gfx_mode
+menuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-c62ba28c-9447-4ace-8c58-b772d496e919' {
+	recordfail
+	load_video
+	gfxmode $linux_gfx_mode
+	insmod gzio
+	insmod part_gpt
+	insmod ext2
+	set root='hd0,gpt2'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+	else
+	  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+	fi
+	linux	/boot/vmlinuz-3.13.0-73-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+	initrd	/boot/initrd.img-3.13.0-73-generic
+}
+submenu 'Advanced options for Ubuntu' $menuentry_id_option 'gnulinux-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+	menuentry 'Ubuntu, with Linux 3.13.0-73-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-73-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-73-generic ...'
+		linux	/boot/vmlinuz-3.13.0-73-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-73-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-73-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-73-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-73-generic ...'
+		linux	/boot/vmlinuz-3.13.0-73-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-73-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-72-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-72-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-72-generic ...'
+		linux	/boot/vmlinuz-3.13.0-72-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-72-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-72-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-72-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-72-generic ...'
+		linux	/boot/vmlinuz-3.13.0-72-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-72-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-69-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-69-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-69-generic ...'
+		linux	/boot/vmlinuz-3.13.0-69-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-69-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-69-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-69-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-69-generic ...'
+		linux	/boot/vmlinuz-3.13.0-69-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-69-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-67-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-67-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-67-generic ...'
+		linux	/boot/vmlinuz-3.13.0-67-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-67-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-67-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-67-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-67-generic ...'
+		linux	/boot/vmlinuz-3.13.0-67-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-67-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-66-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-66-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-66-generic ...'
+		linux	/boot/vmlinuz-3.13.0-66-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-66-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-66-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-66-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-66-generic ...'
+		linux	/boot/vmlinuz-3.13.0-66-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-66-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-65-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-65-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-65-generic ...'
+		linux	/boot/vmlinuz-3.13.0-65-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-65-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-65-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-65-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-65-generic ...'
+		linux	/boot/vmlinuz-3.13.0-65-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-65-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-64-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-64-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-64-generic ...'
+		linux	/boot/vmlinuz-3.13.0-64-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-64-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-64-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-64-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-64-generic ...'
+		linux	/boot/vmlinuz-3.13.0-64-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-64-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-63-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-63-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-63-generic ...'
+		linux	/boot/vmlinuz-3.13.0-63-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-63-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-63-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-63-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-63-generic ...'
+		linux	/boot/vmlinuz-3.13.0-63-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-63-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-62-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-62-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-62-generic ...'
+		linux	/boot/vmlinuz-3.13.0-62-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-62-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-62-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-62-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-62-generic ...'
+		linux	/boot/vmlinuz-3.13.0-62-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-62-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-61-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-61-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-61-generic ...'
+		linux	/boot/vmlinuz-3.13.0-61-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-61-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-61-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-61-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-61-generic ...'
+		linux	/boot/vmlinuz-3.13.0-61-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-61-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-59-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-59-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-59-generic ...'
+		linux	/boot/vmlinuz-3.13.0-59-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-59-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-59-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-59-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-59-generic ...'
+		linux	/boot/vmlinuz-3.13.0-59-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-59-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-58-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-58-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-58-generic ...'
+		linux	/boot/vmlinuz-3.13.0-58-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-58-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-58-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-58-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-58-generic ...'
+		linux	/boot/vmlinuz-3.13.0-58-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-58-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-57-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-57-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-57-generic ...'
+		linux	/boot/vmlinuz-3.13.0-57-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-57-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-57-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-57-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-57-generic ...'
+		linux	/boot/vmlinuz-3.13.0-57-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-57-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-55-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-55-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-55-generic ...'
+		linux	/boot/vmlinuz-3.13.0-55-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-55-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-55-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-55-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-55-generic ...'
+		linux	/boot/vmlinuz-3.13.0-55-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-55-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-53-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-53-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-53-generic ...'
+		linux	/boot/vmlinuz-3.13.0-53-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-53-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-53-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-53-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-53-generic ...'
+		linux	/boot/vmlinuz-3.13.0-53-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-53-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-49-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-49-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-49-generic ...'
+		linux	/boot/vmlinuz-3.13.0-49-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-49-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-49-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-49-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-49-generic ...'
+		linux	/boot/vmlinuz-3.13.0-49-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-49-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-45-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-45-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-45-generic ...'
+		linux	/boot/vmlinuz-3.13.0-45-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-45-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-45-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-45-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-45-generic ...'
+		linux	/boot/vmlinuz-3.13.0-45-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-45-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-32-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-32-generic-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		gfxmode $linux_gfx_mode
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-32-generic ...'
+		linux	/boot/vmlinuz-3.13.0-32-generic root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro  quiet splash nomdmonddf nomdmonisw $vt_handoff
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-32-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-32-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.13.0-32-generic-recovery-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		recordfail
+		load_video
+		insmod gzio
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2 --hint='hd0,gpt2'  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		echo	'Loading Linux 3.13.0-32-generic ...'
+		linux	/boot/vmlinuz-3.13.0-32-generic root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset 
+		echo	'Loading initial ramdisk ...'
+		initrd	/boot/initrd.img-3.13.0-32-generic
+	}
+}
+
+### END /etc/grub.d/10_linux ###
+
+### BEGIN /etc/grub.d/20_linux_xen ###
+
+### END /etc/grub.d/20_linux_xen ###
+
+### BEGIN /etc/grub.d/20_memtest86+ ###
+### END /etc/grub.d/20_memtest86+ ###
+
+### BEGIN /etc/grub.d/30_os-prober ###
+menuentry 'Linux Mint 17.1 Rebecca (17.1) (on /dev/sda5)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-simple-70f6bd77-0d3d-4c96-a05e-68c2e75bdc55' {
+	insmod part_gpt
+	insmod ext2
+	set root='hd0,gpt5'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt5 --hint-efi=hd0,gpt5 --hint-baremetal=ahci0,gpt5 --hint='hd0,gpt5'  70f6bd77-0d3d-4c96-a05e-68c2e75bdc55
+	else
+	  search --no-floppy --fs-uuid --set=root 70f6bd77-0d3d-4c96-a05e-68c2e75bdc55
+	fi
+	linux /boot/vmlinuz-3.13.0-37-generic root=UUID=70f6bd77-0d3d-4c96-a05e-68c2e75bdc55 ro quiet splash $vt_handoff
+	initrd /boot/initrd.img-3.13.0-37-generic
+}
+submenu 'Advanced options for Linux Mint 17.1 Rebecca (17.1) (on /dev/sda5)' $menuentry_id_option 'osprober-gnulinux-advanced-70f6bd77-0d3d-4c96-a05e-68c2e75bdc55' {
+	menuentry 'Linux Mint 17.1 Cinnamon 64-bit, 3.13.0-37-generic (/dev/sda5) (on /dev/sda5)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-37-generic--70f6bd77-0d3d-4c96-a05e-68c2e75bdc55' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt5'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt5 --hint-efi=hd0,gpt5 --hint-baremetal=ahci0,gpt5 --hint='hd0,gpt5'  70f6bd77-0d3d-4c96-a05e-68c2e75bdc55
+		else
+		  search --no-floppy --fs-uuid --set=root 70f6bd77-0d3d-4c96-a05e-68c2e75bdc55
+		fi
+		linux /boot/vmlinuz-3.13.0-37-generic root=UUID=70f6bd77-0d3d-4c96-a05e-68c2e75bdc55 ro quiet splash $vt_handoff
+		initrd /boot/initrd.img-3.13.0-37-generic
+	}
+	menuentry 'Linux Mint 17.1 Cinnamon 64-bit, 3.13.0-37-generic (/dev/sda5) -- recovery mode (on /dev/sda5)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-37-generic-root=UUID=70f6bd77-0d3d-4c96-a05e-68c2e75bdc55 ro recovery nomodeset-70f6bd77-0d3d-4c96-a05e-68c2e75bdc55' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt5'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt5 --hint-efi=hd0,gpt5 --hint-baremetal=ahci0,gpt5 --hint='hd0,gpt5'  70f6bd77-0d3d-4c96-a05e-68c2e75bdc55
+		else
+		  search --no-floppy --fs-uuid --set=root 70f6bd77-0d3d-4c96-a05e-68c2e75bdc55
+		fi
+		linux /boot/vmlinuz-3.13.0-37-generic root=UUID=70f6bd77-0d3d-4c96-a05e-68c2e75bdc55 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-37-generic
+	}
+}
+
+
+set timeout_style=menu
+if [ "${timeout}" = 0 ]; then
+  set timeout=10
+fi
+### END /etc/grub.d/30_os-prober ###
+
+### BEGIN /etc/grub.d/30_uefi-firmware ###
+### END /etc/grub.d/30_uefi-firmware ###
+
+### BEGIN /etc/grub.d/40_custom ###
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+### END /etc/grub.d/40_custom ###
+
+### BEGIN /etc/grub.d/41_custom ###
+if [ -f  ${config_directory}/custom.cfg ]; then
+  source ${config_directory}/custom.cfg
+elif [ -z "${config_directory}" -a -f  $prefix/custom.cfg ]; then
+  source $prefix/custom.cfg;
+fi
+### END /etc/grub.d/41_custom ###
+--------------------------------------------------------------------------------
+
+=============================== sda2/etc/fstab: ================================
+
+--------------------------------------------------------------------------------
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda2 during installation
+UUID=c62ba28c-9447-4ace-8c58-b772d496e919 /               ext4    errors=remount-ro 0       1
+# /boot/efi was on /dev/sda1 during installation
+UUID=E799-CB4B  /boot/efi       vfat    defaults        0       1
+# swap was on /dev/sda3 during installation
+UUID=c94563d8-369d-45e5-96e4-cd007aabd846 none            swap    sw              0       0
+--------------------------------------------------------------------------------
+
+====================== sda2/boot/extlinux/extlinux.conf: =======================
+
+--------------------------------------------------------------------------------
+## /boot/extlinux/extlinux.conf
+##
+## IMPORTANT WARNING
+##
+## The configuration of this file is generated automatically.
+## Do not edit this file manually, use: extlinux-update
+
+
+default l0
+prompt 1
+timeout 50
+
+include themes/debian/theme.cfg
+--------------------------------------------------------------------------------
+
+=================== sda2: Location of files loaded by Grub: ====================
+
+           GiB - GB             File                                 Fragment(s)
+
+
+================= sda2: Location of files loaded by Syslinux: ==================
+
+           GiB - GB             File                                 Fragment(s)
+
+
+============== sda2: Version of COM32(R) files used by Syslinux: ===============
+
+ boot/extlinux/chain.c32            :  COM32R module (v4.xx)
+
+=========================== sda5/boot/grub/grub.cfg: ===========================
+
+--------------------------------------------------------------------------------
+#
+# DO NOT EDIT THIS FILE
+#
+# It is automatically generated by grub-mkconfig using templates
+# from /etc/grub.d and settings from /etc/default/grub
+#
+
+### BEGIN /etc/grub.d/00_header ###
+if [ -s $prefix/grubenv ]; then
+  set have_grubenv=true
+  load_env
+fi
+if [ "${next_entry}" ] ; then
+   set default="${next_entry}"
+   set next_entry=
+   save_env next_entry
+   set boot_once=true
+else
+   set default="0"
+fi
+
+if [ x"${feature_menuentry_id}" = xy ]; then
+  menuentry_id_option="--id"
+else
+  menuentry_id_option=""
+fi
+
+export menuentry_id_option
+
+if [ "${prev_saved_entry}" ]; then
+  set saved_entry="${prev_saved_entry}"
+  save_env saved_entry
+  set prev_saved_entry=
+  save_env prev_saved_entry
+  set boot_once=true
+fi
+
+function savedefault {
+  if [ -z "${boot_once}" ]; then
+    saved_entry="${chosen}"
+    save_env saved_entry
+  fi
+}
+function recordfail {
+  set recordfail=1
+  if [ -n "${have_grubenv}" ]; then if [ -z "${boot_once}" ]; then save_env recordfail; fi; fi
+}
+function load_video {
+  if [ x$feature_all_video_module = xy ]; then
+    insmod all_video
+  else
+    insmod efi_gop
+    insmod efi_uga
+    insmod ieee1275_fb
+    insmod vbe
+    insmod vga
+    insmod video_bochs
+    insmod video_cirrus
+  fi
+}
+
+if [ x$feature_default_font_path = xy ] ; then
+   font=unicode
+else
+insmod part_gpt
+insmod ext2
+set root='hd0,gpt5'
+if [ x$feature_platform_search_hint = xy ]; then
+  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt5 --hint-efi=hd0,gpt5 --hint-baremetal=ahci0,gpt5  70f6bd77-0d3d-4c96-a05e-68c2e75bdc55
+else
+  search --no-floppy --fs-uuid --set=root 70f6bd77-0d3d-4c96-a05e-68c2e75bdc55
+fi
+    font="/usr/share/grub/unicode.pf2"
+fi
+
+if loadfont $font ; then
+  set gfxmode=auto
+  load_video
+  insmod gfxterm
+  set locale_dir=$prefix/locale
+  set lang=en_US
+  insmod gettext
+fi
+terminal_output gfxterm
+if [ "${recordfail}" = 1 ] ; then
+  set timeout=30
+else
+  if [ x$feature_timeout_style = xy ] ; then
+    set timeout_style=menu
+    set timeout=10
+  # Fallback normal timeout code in case the timeout_style feature is
+  # unavailable.
+  else
+    set timeout=10
+  fi
+fi
+### END /etc/grub.d/00_header ###
+
+### BEGIN /etc/grub.d/05_debian_theme ###
+set menu_color_normal=white/black
+set menu_color_highlight=black/light-gray
+### END /etc/grub.d/05_debian_theme ###
+
+### BEGIN /etc/grub.d/06_mint_theme ###
+set menu_color_normal=white/black
+set menu_color_highlight=white/light-gray
+### END /etc/grub.d/06_mint_theme ###
+
+### BEGIN /etc/grub.d/10_linux ###
+function gfxmode {
+	set gfxpayload="$1"
+	if [ "$1" = "keep" ]; then
+		set vt_handoff=vt.handoff=7
+	else
+		set vt_handoff=
+	fi
+}
+if [ ${recordfail} != 1 ]; then
+  if [ -e ${prefix}/gfxblacklist.txt ]; then
+    if hwmatch ${prefix}/gfxblacklist.txt 3; then
+      if [ ${match} = 0 ]; then
+        set linux_gfx_mode=keep
+      else
+        set linux_gfx_mode=text
+      fi
+    else
+      set linux_gfx_mode=text
+    fi
+  else
+    set linux_gfx_mode=keep
+  fi
+else
+  set linux_gfx_mode=text
+fi
+export linux_gfx_mode
+if [ "$linux_gfx_mode" != "text" ]; then load_video; fi
+menuentry 'Linux Mint 17.1 Cinnamon 64-bit, 3.13.0-37-generic (/dev/sda5)' --class ubuntu --class gnu-linux --class gnu --class os {
+	recordfail
+	gfxmode $linux_gfx_mode
+	insmod gzio
+	insmod part_gpt
+	insmod ext2
+	set root='hd0,gpt5'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt5 --hint-efi=hd0,gpt5 --hint-baremetal=ahci0,gpt5  70f6bd77-0d3d-4c96-a05e-68c2e75bdc55
+	else
+	  search --no-floppy --fs-uuid --set=root 70f6bd77-0d3d-4c96-a05e-68c2e75bdc55
+	fi
+	linux	/boot/vmlinuz-3.13.0-37-generic root=UUID=70f6bd77-0d3d-4c96-a05e-68c2e75bdc55 ro   quiet splash $vt_handoff
+	initrd	/boot/initrd.img-3.13.0-37-generic
+}
+menuentry 'Linux Mint 17.1 Cinnamon 64-bit, 3.13.0-37-generic (/dev/sda5) -- recovery mode' --class ubuntu --class gnu-linux --class gnu --class os {
+	recordfail
+	insmod gzio
+	insmod part_gpt
+	insmod ext2
+	set root='hd0,gpt5'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt5 --hint-efi=hd0,gpt5 --hint-baremetal=ahci0,gpt5  70f6bd77-0d3d-4c96-a05e-68c2e75bdc55
+	else
+	  search --no-floppy --fs-uuid --set=root 70f6bd77-0d3d-4c96-a05e-68c2e75bdc55
+	fi
+	echo	'Loading Linux 3.13.0-37-generic ...'
+	linux	/boot/vmlinuz-3.13.0-37-generic root=UUID=70f6bd77-0d3d-4c96-a05e-68c2e75bdc55 ro recovery nomodeset 
+	echo	'Loading initial ramdisk ...'
+	initrd	/boot/initrd.img-3.13.0-37-generic
+}
+### END /etc/grub.d/10_linux ###
+
+### BEGIN /etc/grub.d/10_lupin ###
+### END /etc/grub.d/10_lupin ###
+
+### BEGIN /etc/grub.d/20_linux_xen ###
+
+### END /etc/grub.d/20_linux_xen ###
+
+### BEGIN /etc/grub.d/20_memtest86+ ###
+### END /etc/grub.d/20_memtest86+ ###
+
+### BEGIN /etc/grub.d/30_os-prober ###
+menuentry 'Ubuntu 14.04.4 LTS (14.04) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-simple-c62ba28c-9447-4ace-8c58-b772d496e919' {
+	insmod part_gpt
+	insmod ext2
+	set root='hd0,gpt2'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+	else
+	  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+	fi
+	linux /boot/vmlinuz-3.13.0-73-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+	initrd /boot/initrd.img-3.13.0-73-generic
+}
+submenu 'Advanced options for Ubuntu 14.04.4 LTS (14.04) (on /dev/sda2)' $menuentry_id_option 'osprober-gnulinux-advanced-c62ba28c-9447-4ace-8c58-b772d496e919' {
+	menuentry 'Ubuntu (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-73-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-73-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-73-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-73-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-73-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-73-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-73-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-73-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-73-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-73-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-73-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-72-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-72-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-72-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-72-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-72-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-72-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-72-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-72-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-69-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-69-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-69-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-69-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-69-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-69-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-69-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-69-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-67-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-67-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-67-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-67-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-67-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-67-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-67-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-67-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-66-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-66-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-66-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-66-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-66-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-66-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-66-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-66-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-65-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-65-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-65-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-65-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-65-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-65-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-65-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-65-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-64-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-64-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-64-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-64-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-64-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-64-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-64-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-64-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-63-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-63-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-63-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-63-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-63-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-63-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-63-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-63-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-62-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-62-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-62-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-62-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-62-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-62-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-62-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-62-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-61-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-61-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-61-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-61-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-61-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-61-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-61-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-61-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-59-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-59-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-59-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-59-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-59-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-59-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-59-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-59-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-58-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-58-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-58-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-58-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-58-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-58-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-58-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-58-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-57-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-57-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-57-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-57-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-57-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-57-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-57-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-57-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-55-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-55-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-55-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-55-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-55-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-55-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-55-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-55-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-53-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-53-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-53-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-53-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-53-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-53-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-53-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-53-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-49-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-49-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-49-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-49-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-49-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-49-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-49-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-49-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-45-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-45-generic.efi.signed--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-45-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-45-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-45-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-45-generic.efi.signed-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-45-generic.efi.signed root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-45-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-32-generic (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-32-generic--c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-32-generic root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro quiet splash nomdmonddf nomdmonisw $vt_handoff
+		initrd /boot/initrd.img-3.13.0-32-generic
+	}
+	menuentry 'Ubuntu, with Linux 3.13.0-32-generic (recovery mode) (on /dev/sda2)' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-/boot/vmlinuz-3.13.0-32-generic-root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset-c62ba28c-9447-4ace-8c58-b772d496e919' {
+		insmod part_gpt
+		insmod ext2
+		set root='hd0,gpt2'
+		if [ x$feature_platform_search_hint = xy ]; then
+		  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  c62ba28c-9447-4ace-8c58-b772d496e919
+		else
+		  search --no-floppy --fs-uuid --set=root c62ba28c-9447-4ace-8c58-b772d496e919
+		fi
+		linux /boot/vmlinuz-3.13.0-32-generic root=UUID=c62ba28c-9447-4ace-8c58-b772d496e919 ro recovery nomodeset
+		initrd /boot/initrd.img-3.13.0-32-generic
+	}
+}
+
+set timeout_style=menu
+if [ "${timeout}" = 0 ]; then
+  set timeout=10
+fi
+### END /etc/grub.d/30_os-prober ###
+
+### BEGIN /etc/grub.d/30_uefi-firmware ###
+### END /etc/grub.d/30_uefi-firmware ###
+
+### BEGIN /etc/grub.d/40_custom ###
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+### END /etc/grub.d/40_custom ###
+
+### BEGIN /etc/grub.d/41_custom ###
+if [ -f  ${config_directory}/custom.cfg ]; then
+  source ${config_directory}/custom.cfg
+elif [ -z "${config_directory}" -a -f  $prefix/custom.cfg ]; then
+  source $prefix/custom.cfg;
+fi
+### END /etc/grub.d/41_custom ###
+--------------------------------------------------------------------------------
+
+=============================== sda5/etc/fstab: ================================
+
+--------------------------------------------------------------------------------
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda5 during installation
+UUID=70f6bd77-0d3d-4c96-a05e-68c2e75bdc55 /               ext4    errors=remount-ro 0       1
+# swap was on /dev/sda3 during installation
+UUID=c94563d8-369d-45e5-96e4-cd007aabd846 none            swap    sw              0       0
+--------------------------------------------------------------------------------
+
+=================== sda5: Location of files loaded by Grub: ====================
+
+           GiB - GB             File                                 Fragment(s)
+
+
+=============================== sdb2/etc/fstab: ================================
+
+--------------------------------------------------------------------------------
+proc            /proc           proc    defaults          0       0
+/dev/mmcblk0p1  /boot           vfat    defaults          0       2
+/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1
+--------------------------------------------------------------------------------
+
+=============================== StdErr Messages: ===============================
+
+cat: /tmp/BootInfo-4h8qwlBN/Tmp_Log: No such file or directory
+cat: /tmp/BootInfo-4h8qwlBN/Tmp_Log: No such file or directory
+cat: /tmp/BootInfo-4h8qwlBN/Tmp_Log: No such file or directory
+mdadm: No arrays found in config file or automatically
+
