@@ -1,12 +1,13 @@
 #!/bin/bash
 
 #===========================
-db="/home/patrick/Downloads/MyHome/Resources/memodb"
+cd ~
+db="Downloads/MyHome/Resources/memodb"
 table="memos"
 database_program="sqlite3"
 #===========================
 
-execdb () { echo "$dbmsg" | sqlite3 $db | sed "s/|/\t/g"; }
+execdb () { echo "$dbmsg" | sqlite3 $db | sed "s/|/	/g"; }
 
 #default priority
 pri=3 
