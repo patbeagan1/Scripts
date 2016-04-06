@@ -136,3 +136,7 @@ tp () { PS1='\[\e]0;\w\a\]\n\[\e[00;33m\][\d \A \[\e[01;35m\]\w\[\e[00;33m\]]\[\
 #lists the users on the system
 list_users() { cut -d: -f1 /etc/passwd; }
 
+#realtime report of common system info
+report () {
+    loop "clear; df; echo; w; echo; ps -e -o pcpu -o ruser -o args|sort -nr|grep -v %CPU|head -1; sleep 5"
+}
