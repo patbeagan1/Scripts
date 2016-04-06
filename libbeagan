@@ -44,7 +44,7 @@ comic ()    { zip -r $1.zip $1; mv $1.zip $1.cbz; }
 peek ()     { tree -L 2; }
 
 #perform the same action every 0.5 seconds
-loop ()     { while :; do $*; sleep 0.5; if [ $1 == "-c" ]; then clear; fi; done; }
+loop ()     { while :; do eval $1; sleep 0.5; done; }
 
 #use for delaying input, as in the movies
 echo_delay () { shift; echo "$@" | pv -qL 10; }
@@ -132,3 +132,7 @@ weather () { curl http://wttr.in/Boston; }
 
 #time prompt
 tp () { PS1='\[\e]0;\w\a\]\n\[\e[00;33m\][\d \A \[\e[01;35m\]\w\[\e[00;33m\]]\[\e[0m\]$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]") $(__awsenv_ps1)\n\$ '; }
+
+#lists the users on the system
+list_users() { cut -d: -f1 /etc/passwd; }
+
