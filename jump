@@ -6,6 +6,7 @@ currdir=0
 case "$1" in
 #==========================================
 # the myhome directories
+c)          j $2; clear;;
 sys)		cd /Users/pbeagan/Desktop/sysscript_scripts;;
 home) 		cd ~/Downloads/MyHome;;
 audio)		cd ~/Downloads/MyHome/Audio;;

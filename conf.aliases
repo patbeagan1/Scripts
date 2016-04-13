@@ -24,4 +24,4 @@ alias lynx='lynx -accept_all_cookies'
 source drop
 source jump
 shopt -s histappend
-
+alias jc="j c"

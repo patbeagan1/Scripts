@@ -69,9 +69,13 @@ peek ()     {
 }
 
 #perform the same action every 0.5 seconds
+<<<<<<< HEAD
 loop ()     { 
     while :; do $*; sleep 0.5; if [ $1 == "-c" ]; then clear; fi; done; 
 }
+=======
+loop ()     { while :; do eval $1; sleep 0.5; done; }
+>>>>>>> b3715d67347ee42ff01007102cd1f2406c32932c
 
 #use for delaying input, as in the movies
 echo_delay () { 
@@ -210,6 +214,22 @@ weather () {
 }
 
 #time prompt
+<<<<<<< HEAD
 tp () { 
     PS1='\[\e]0;\w\a\]\n\[\e[00;33m\][\d \A \[\e[01;35m\]\w\[\e[00;33m\]]\[\e[0m\]$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]") $(__awsenv_ps1)\n\$ '; 
+=======
+tp () { PS1='\[\e]0;\w\a\]\n\[\e[00;33m\][\d \A \[\e[01;35m\]\w\[\e[00;33m\]]\[\e[0m\]$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]") $(__awsenv_ps1)\n\$ '; }
+
+<<<<<<< HEAD
+killport () {
+sudo kill $(sudo lsof -t -i:$1)
+=======
+#lists the users on the system
+list_users() { cut -d: -f1 /etc/passwd; }
+
+#realtime report of common system info
+report () {
+    loop "clear; df; echo; w; echo; ps -e -o pcpu -o ruser -o args|sort -nr|grep -v %CPU|head -1; sleep 5"
+>>>>>>> 4924f49b15637c9925b4f3218a0f09c7a72b4724
+>>>>>>> b3715d67347ee42ff01007102cd1f2406c32932c
 }
