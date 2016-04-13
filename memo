@@ -1,12 +1,13 @@
 #!/bin/bash
 
 #===========================
-db="/home/patrick/Downloads/MyHome/Resources/memodb"
+cd ~
+db="Downloads/MyHome/Resources/memodb"
 table="memos"
 database_program="sqlite3"
 #===========================
 
-execdb () { echo "$dbmsg" | sqlite3 $db | sed "s/|/\t/g"; }
+execdb () { echo "$dbmsg" | sqlite3 $db | sed "s/|/	/g"; }
 
 #default priority
 pri=3 
@@ -34,7 +35,7 @@ case $1 in
 	p|-p)	pri=$2; shift; shift
             dbmsg="insert into memos values($pri,$(date +%s),\"$(date +%m/%d/%y)\",\"$@\");" 
     ;;	
-    *) 	    dbmsg="insert into memos values(\":L3:\",\"$(date +%s)\",\"$(date +%m/%d/%y)\",\"$@\");"
+    *) 	    dbmsg="insert into memos values(\"3\",\"$(date +%s)\",\"$(date +%m/%d/%y)\",\"$@\");"
     ;;
 esac
 
