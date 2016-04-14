@@ -28,7 +28,7 @@ fi
 #git pull
 
 j etc
-remind -c+ remind
+remind -c+ -w$(tput cols) remind
 
 #kind of annoying to see them all the time.
 #looking at the memos, if any are set
