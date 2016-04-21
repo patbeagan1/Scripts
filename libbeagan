@@ -224,18 +224,16 @@ list_users() { cut -d: -f1 /etc/passwd; }
 #realtime report of common system info
 report () {
     loop "clear; df; echo; w; echo; ps -e -o pcpu -o ruser -o args|sort -nr|grep -v %CPU|head -1; sleep 5"
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
 
+#show how all the given arguments are parsed
 argnum () {
     printf "%d args:" $#
     printf " <%s>" "$@"
     echo
-=======
->>>>>>> 4924f49b15637c9925b4f3218a0f09c7a72b4724
->>>>>>> b3715d67347ee42ff01007102cd1f2406c32932c
->>>>>>> b4a8fec05d3d1b9bda291738a5a731cc6b0e4504
-=======
->>>>>>> 21596ea13afee07ecec010e4da9da05d7f48b334
+}
+
+#show the man page for if. It's a pain.
+manif () {
+    lynx http://tldp.org/LDP/abs/html/comparison-ops.html;
 }
