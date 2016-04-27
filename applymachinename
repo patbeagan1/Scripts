@@ -1,0 +1,10 @@
+for i in *; do 
+    (
+        cd $i; 
+        for i in *.*; do 
+            echo $i | sed 's/\..*$//'; 
+            done >> ../machines;
+    ); 
+done; 
+sort  machines | uniq | grep -v README | grep -v gen | grep -v genlib > uniqmachines; 
+mv uniqmachines machines;
