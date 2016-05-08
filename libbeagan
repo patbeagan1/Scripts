@@ -89,7 +89,8 @@ editlast () {
 }
     
 #prints out the contents of multiple files side by side, for when diff just can't cut it
-compare (){ 
+compare () { 
+    printf "\t%s\n" "$@";
     pr -w $(tput cols) -m -t $@; 
 }
 
