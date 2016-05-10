@@ -29,4 +29,6 @@ echo 0$0 1$1 2$2
 echo $options
 echo
 
-rsync $options --exclude ~/.steam --exclude ~/.cache --exclude ~/.config /home /etc /tmp/installed_commands $1
+rsync $options --info=progress2 --info=name0 --exclude ~/.steam --exclude ~/.cache --exclude ~/.config /home /etc /tmp/installed_commands $1 2>fullbackup_errors.log
+
+cat fullbackup_errors.log
