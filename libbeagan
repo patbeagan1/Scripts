@@ -8,6 +8,11 @@
 #TO USE:
 #if you type "source libbeagan" into a bash terminal, all of these functions will be available to you.
 
+#list all the daemons on the system
+lsdaemons () {
+    ps -eo 'tty,pid,comm' | grep ^?
+}
+
 #destroys those pesky dsstore files.
 destroy_dsstore_global () { 
     sudo find / -name ".DS_Store" -depth -exec echo {} \;;
