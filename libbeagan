@@ -8,6 +8,14 @@
 #TO USE:
 #if you type "source libbeagan" into a bash terminal, all of these functions will be available to you.
 
+listfuncs() {
+    echo $(set | grep \(\) | grep -v =) | sed s/\(\)//g | sed s/\ \ /\ /g
+}
+
+diffall() {
+    for i in *; do for j in *; do echo === $i \|\| $j; diff $i $j; done; done
+}
+
 #svn wrapper to add in the addall functionality
 svn() {
     if [[ "$@" == "add all" ]] || [[ "$@" == "addall" ]]; then
