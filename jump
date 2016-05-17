@@ -13,6 +13,8 @@ j() {
 case "$1" in
 #==========================================
 # the myhome directories
+r|remind)
+    j etc; cd remind;;
 c)          
     j $2; clear;;
 sys)		
