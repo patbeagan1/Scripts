@@ -1,9 +1,11 @@
 cdr() {
-    if [ -z $1 ]; then
+    IFS="^"
+    if [ -z "$1" ]; then
         pushd ~ 1>/dev/null
     else
-        pushd $1 1>/dev/null
+        pushd "$1" 1>/dev/null
     fi
+    unset IFS
 }
 
 alias cd="cdr"
