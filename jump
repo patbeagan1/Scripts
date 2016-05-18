@@ -55,7 +55,7 @@ unsave)
 # stacked directories
 showstack)
     pushd .; popd 1>/dev/null;;
-back)		
+b|back)		
     popd 1>/dev/null;;
 *) 		  
     echo Not a vaild location.;;

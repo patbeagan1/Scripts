@@ -8,10 +8,26 @@
 #TO USE:
 #if you type "source libbeagan" into a bash terminal, all of these functions will be available to you.
 
+#creates a system message. Useful for scripts.
+get_sysmessage () {
+    if [ -z $Category ]; then Category="Undefined"; fi
+    #creates a message which includes all the below information, 
+    #which is inserted into the start of the message body.
+    
+    echo "
+    Category: $Category
+    Machine:  $(hostname)
+    Script:   $0
+    Date:     $(date)
+    "
+}
+
+#lists all of the currently defined functions
 listfuncs() {
     echo $(set | grep \(\) | grep -v =) | sed s/\(\)//g | sed s/\ \ /\ /g
 }
 
+#diffs all of the files in the current directory against each other
 diffall() {
     for i in *; do for j in *; do echo === $i \|\| $j; diff $i $j; done; done
 }
