@@ -8,6 +8,13 @@
 #TO USE:
 #if you type "source libbeagan" into a bash terminal, all of these functions will be available to you.
 
+#logs the time of the command
+alias tc="timeclock"
+alias lunch="tc lunch"
+timeclock() {
+    printf "%s\t|%s\n" "$1" "`date`" >> ~/timeclock.log 
+}
+
 #creates a system message. Useful for scripts.
 get_sysmessage () {
     if [ -z $Category ]; then Category="Undefined"; fi
@@ -38,6 +45,8 @@ svn() {
         command svn add $(svn st | grep ? | sed s"/\?//")
     elif [[ "$@" == "rm all" ]] || [[ "$@" == "rmall" ]]; then
         command svn rm $(svn st | grep ! | sed s"/\!//")
+    elif [[ "$@" == "log" ]]; then
+        command svn log | less
     else
         command svn "$@"
     fi
