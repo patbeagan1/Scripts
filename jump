@@ -9,6 +9,7 @@ cdr() {
 }
 
 alias cd="cdr"
+alias back="j back"
 
 j() {
 
