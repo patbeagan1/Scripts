@@ -29,7 +29,7 @@ function movefiles {
 
 #===================================================
 #AUDIO BLOCK
-audio=(".mp3" ".wav" ".mid" ".ogg"); 
+audio=(".mp3" ".wav" ".mid" ".ogg");
 movefiles Audio audio[@]
 
 #===================================================
@@ -38,7 +38,7 @@ movefiles Audio audio[@]
 code=(".py" ".pyc" ".pyo")
 code+=( ".c" ".cpp" ".out")
 code+=( ".hs" )
-code+=(".java" ".class")         
+code+=(".java" ".class")
 code+=(".sh" ".pl" ".scpt" ".applescript")
 movefiles Code code[@]
 chkmk Code/BIN
@@ -49,9 +49,8 @@ chkmk Code/Scripts
 
 #===================================================
 #ETC BLOCK
-config=(".pem" ".crt" ".key" ".log" ".conf" ".rc"); 
-movefiles Code/etc config[@]
-touch Code/etc/CHECK_HIDDEN
+config=(".pem" ".crt" ".key" ".log" ".conf" ".rc");
+movefiles System config[@]
 
 #===================================================
 #GAME BLOCK
@@ -71,7 +70,7 @@ movefiles OS ops[@]
 #===================================================
 #RESOURCES BLOCK
 txt=(".txt" ".pdf" ".odt" ".doc" ".docx" ".rtf" )
-web=(".html" ".mhtml" ".js" ".json" ".css" ".csv" ) 
+web=(".html" ".mhtml" ".js" ".json" ".css" ".csv" )
 chkmk Resources
 movefiles Resources/text txt[@]
 chkmk Resources/text/notes
@@ -83,7 +82,7 @@ zip=(".zip" ".gz" ".bz2" ".xz" ".ZIP" ".rar")
 mis=("")
 movefiles Zip zip[@]
 movefiles Misc mis[@]
-   
+
 
 #===================================================
 # cleaning files after they have been sorted
