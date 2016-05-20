@@ -8,6 +8,10 @@
 #TO USE:
 #if you type "source libbeagan" into a bash terminal, all of these functions will be available to you.
 
+checkcrlf(){
+	dos2unix < "$1" | cmp -s - "$1"
+}
+
 #logs the time of the command
 alias tc="timeclock"
 alias lunch="tc lunch"
@@ -157,7 +161,7 @@ serve_directory () {
 #mplayer -ao pcm -vo null -vc dummy -dumpaudio -dumpfile <output-file> <input-file>
 
 #interprets arithmetic operations
-?? () { 
+math () { 
     echo "$*" | bc -l;
 }
 
