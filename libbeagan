@@ -8,6 +8,10 @@
 #TO USE:
 #if you type "source libbeagan" into a bash terminal, all of these functions will be available to you.
 
+binlink(){
+    ln -s $(pwd)/$1 /usr/local/bin/$1
+}
+
 checkcrlf(){
 	dos2unix < "$1" | cmp -s - "$1"
 }
