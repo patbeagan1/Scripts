@@ -8,6 +8,16 @@
 #TO USE:
 #if you type "source libbeagan" into a bash terminal, all of these functions will be available to you.
 
+notabs(){
+    if [ $# -lt 2 ]; then 
+        echo "Usage: notabs <file> <num spaces to use>"
+    else
+        n=""
+        for i in $(seq 1 $2); do n+=" "; done
+        sed "s/	/$n/g" $1
+    fi
+}
+
 binlink(){
     ln -s $(pwd)/$1 /usr/local/bin/$1
 }
@@ -38,7 +48,7 @@ get_sysmessage () {
 }
 
 #lists all of the currently defined functions
-listfuncs() {
+lsfuncs() {
     echo $(set | grep \(\) | grep -v =) | sed s/\(\)//g | sed s/\ \ /\ /g
 }
 
