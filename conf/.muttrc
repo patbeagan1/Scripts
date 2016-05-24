@@ -1,0 +1,12 @@
+# Automatically log in to this mailbox at startup
+set spoolfile="imaps://pbeagan@exchange.cs.umass.edu"
+# Define the = shortcut, and the entry point for the folder browser (c?)
+set folder="imaps://cs.umass.edu/"
+set record="=Sent"
+set postponed="=Drafts"
+bind pager <up> previous-line #scroll inside the message rather than the index
+bind pager <down> next-line
+set sleep_time = 0 # be fast
+set smart_wrap
+mailboxes $Mail
+macro index y "<change-folder>?<toggle-mailboxes>" "show incoming mailboxes list"

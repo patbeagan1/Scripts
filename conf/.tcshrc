@@ -1,0 +1,2 @@
+set history=2000
+set savehist=(2000 merge)
