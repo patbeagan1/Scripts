@@ -8,6 +8,11 @@
 #TO USE:
 #if you type "source libbeagan" into a bash terminal, all of these functions will be available to you.
 
+rederr () 
+{ 
+        "$@" 2>&1 1>&3 | sed "s,.*,\033[31m&\e[0m," 1>&2
+} 3>&1
+
 notabs(){
     if [ $# -lt 2 ]; then 
         echo "Usage: notabs <file> <num spaces to use>"
