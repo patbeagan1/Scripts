@@ -8,6 +8,10 @@
 #TO USE:
 #if you type "source libbeagan" into a bash terminal, all of these functions will be available to you.
 
+lastlog(){
+    cd /var/log; less $(ls -1t | head -1)
+}
+
 rederr () 
 { 
         "$@" 2>&1 1>&3 | sed "s,.*,\033[31m&\e[0m," 1>&2
