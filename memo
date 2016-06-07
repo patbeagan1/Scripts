@@ -2,7 +2,7 @@
 
 #===========================
 cd ~
-db="Downloads/MyHome/Resources/remind/memodb"
+db="Downloads/MyHome/Resources/memodb"
 table="memos"
 database_program="sqlite3"
 #===========================
